@@ -4,17 +4,17 @@
 
 
 
-```
-  # 모든 컨테이너를 종료하고 삭제한다. 
-  $ docker stop $(docker ps -a -q)
-  $ docker rm $(docker ps -a -q)
-  
-  # 데이터를 저장할 볼륨을 생성한다. 
-  $ docker volume create pgdata 
-  pgdata
-  
-  # DB 시작
-  $ docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=1q2w3e4r -d -v pgdata:/var/lib/postgresql/data postgres
+```bash
+# 모든 컨테이너를 종료하고 삭제한다. 
+$ docker stop $(docker ps -a -q)
+$ docker rm $(docker ps -a -q)
+
+# 데이터를 저장할 볼륨을 생성한다. 
+$ docker volume create pgdata 
+pgdata
+
+# DB 시작
+$ docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=1q2w3e4r -d -v pgdata:/var/lib/postgresql/data postgres
 ```
 
 `docker` 에서 PostgreSQL 사용시 컨테이너에  
