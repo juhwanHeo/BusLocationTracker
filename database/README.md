@@ -1,6 +1,6 @@
 # BusLocationTrackServer
 ## Database : PostgreSQL
-### docker ( <a href="https://judo0179.tistory.com/96" target="_blank">[참고]</a> )
+### docker ( [참고](https://judo0179.tistory.com/96) )
 
 
 
