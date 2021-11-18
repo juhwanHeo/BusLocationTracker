@@ -2,7 +2,7 @@
 ## Server : Spring Boot ( Java )
 
 `get: /api/bus-logs/`  
-PathVariable: seq_no  
+PathVariable: `seq_no`
 요청 EX)
 ```json
 {
@@ -16,13 +16,17 @@ PathVariable: seq_no
             "accuracy": 99.0,
             "arrivaltime": "2021-11-18"
         },
-        // {...}
+        {
+            "..."
+        }
     ]
 }
 ```
+
+*****
 `get: /api/stations/`  
 요청 EX)
-PathVariable: station_no
+PathVariable: `station_no`
 ```json
 {
     "code": 200,
@@ -46,7 +50,10 @@ PathVariable: station_no
             "lat": "37.652995",
             "lon": "127.311207"
         },
-        // {...}
+        {
+            "..."
+        }
+        
     ]
 }
 
