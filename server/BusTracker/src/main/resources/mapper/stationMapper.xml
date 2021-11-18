@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bustracker.dao.StationDAO">
+
+    <select id="get" parameterType="map" resultType="com.bustracker.dto.Station">
+
+        select
+            *
+        from
+            station
+        where 1=1
+        <if test="station_no != null">
+            and station_no = #{station_no}
+        </if>
+        <if test="station_nm != null">
+            and station_nm = #{station_nm}
+        </if>
+
+    </select>
+
+</mapper>
+
