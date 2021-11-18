@@ -2,8 +2,8 @@
 ## Server : Spring Boot ( Java )
 
 `get: /api/bus-logs/`  
-PathVariable: `seq_no`
-요청 EX)
+PathVariable: `seq_no`  
+요청 EX)  
 ```json
 {
     "code": 200,
@@ -25,8 +25,8 @@ PathVariable: `seq_no`
 
 *****
 `get: /api/stations/`  
-요청 EX)
-PathVariable: `station_no`
+PathVariable: `station_no`  
+요청 EX) 
 ```json
 {
     "code": 200,
@@ -53,7 +53,6 @@ PathVariable: `station_no`
         {
             "..."
         }
-        
     ]
 }
 
