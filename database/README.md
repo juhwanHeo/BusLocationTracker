@@ -14,8 +14,6 @@ pgdata
 
 # DB 처음 시작
 $ docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=1q2w3e4r -d -v pgdata:/var/lib/postgresql/data postgres
-
-
 ```
 ```bash
 # 컨테이너 종료
