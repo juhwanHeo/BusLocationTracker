@@ -4,7 +4,7 @@ plugins {
 	id 'java'
 }
 
-group = 'com.dictation'
+group = 'com.bustracker'
 sourceCompatibility = '1.8'
 
 configurations {
