@@ -32,4 +32,8 @@ public class BusService {
 		return busDAO.get(map);
 	}
 
+	public void add(Bus.Request bus) {
+		busDAO.add(bus);
+	}
+
 }

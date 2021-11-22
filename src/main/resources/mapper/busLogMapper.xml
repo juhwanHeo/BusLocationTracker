@@ -19,5 +19,18 @@
 
     </select>
 
+    <insert id="add" parameterType="com.bustracker.dto.Bus">
+        insert into
+            bus_log
+        values (
+            default
+            , #{lat}
+            , #{lon}
+            , #{accuracy}
+            , #{arrivaltime}
+        )
+    </insert>
+
+
 </mapper>
 

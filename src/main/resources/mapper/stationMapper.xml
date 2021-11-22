@@ -19,5 +19,17 @@
 
     </select>
 
+    <insert id="add" parameterType="com.bustracker.dto.Station">
+        insert into
+            station
+        values (
+            default
+            , #{station_nm}
+            , #{lat}
+            , #{lon}
+       )
+    </insert>
+
+
 </mapper>
 

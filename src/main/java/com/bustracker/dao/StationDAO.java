@@ -11,5 +11,6 @@ import java.util.Map;
 @Mapper
 public interface StationDAO {
     List<Station> get(Map<String, Object> map);
+    void add(Station.Request station);
 
 }

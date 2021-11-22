@@ -1,9 +1,10 @@
-# BusLocationTrackServer
-## Server : Spring Boot ( Java )
-
-`get: /api/bus-logs/`  
-PathVariable: `seq_no`  
-요청 EX)  
+# Server : Spring Boot ( Java )
+# Bus_Log ( `/api/bus-logs/` )
+## Request: `GET` 
+###Ex) `get: /api/bus-logs/`  
+ - PathVariable: `seq_no`
+ - get: /api/bus-logs/`{seq_no}`
+## Response Ex)  
 ```json
 {
     "code": 200,
@@ -22,11 +23,39 @@ PathVariable: `seq_no`
     ]
 }
 ```
+---
+## Request: `POST` 
+### Ex) `post: /api/bus-logs/`  
+```json
+{
+    "lat" : 37.660935,
+    "lon" : 127.32249,
+    "accuracy" : 88.123554,
+    "arrivaltime" : "2021-11-22 16:10:45"
+}
+``` 
+## Response
+```json
+{
+  "code": 200,
+  "msg": "ok",
+  "data": {
+    "lat": 37.660935,
+    "lon": 127.32249,
+    "accuracy": 88.123554,
+    "arrivaltime": "2021-11-22 16:10:45"
+  }
+}
+```
 
-*****
-`get: /api/stations/`  
-PathVariable: `station_no`  
-요청 EX) 
+---
+---
+# Station ( `/api/bus-logs/` )
+## Request: `GET`
+### Ex) `get: /api/stations/`  
+- PathVariable: `station_no`  
+- get: /api/stations/`{station_no}`
+## Response
 ```json
 {
     "code": 200,
@@ -55,7 +84,28 @@ PathVariable: `station_no`
         }
     ]
 }
-
 ```
 
-*****
+---
+## Request: `POST`
+### Ex) `post: /api/stations/`
+```json
+{
+  "station_nm" : "아파트",
+  "lat" : 37.660935,
+  "lon" : 127.32249
+}
+``` 
+## Response
+```json
+{
+  "code": 200,
+  "msg": "ok",
+  "data": {
+    "station_nm": "아파트",
+    "lat": 37.660935,
+    "lon": 127.32249
+  }
+}
+```
+---

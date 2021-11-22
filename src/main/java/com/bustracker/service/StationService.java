@@ -33,4 +33,9 @@ public class StationService {
 		return stationDAO.get(map);
 	}
 
+	public void add(Station.Request station) {
+		stationDAO.add(station);
+	}
+
+
 }

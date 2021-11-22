@@ -61,4 +61,20 @@ public class StationController {
 		return new Station.Response<>(status.value(), msg, stationList);
 	}
 
+	@PostMapping
+	public Station.Response<?> newBusLog(@RequestBody Station.Request station) {
+		String msg = "ok";
+		HttpStatus status;
+
+		try {
+			stationService.add(station);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			msg = e.getMessage();
+			status = HttpStatus.BAD_REQUEST;
+		}
+
+		logger.info("station: " + station);
+		return new Station.Response<>(status.value(), msg, station);
+	}
 }

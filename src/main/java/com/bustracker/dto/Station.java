@@ -1,12 +1,6 @@
 package com.bustracker.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.sql.Date;
-
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
@@ -14,15 +8,16 @@ import java.sql.Date;
 public class Station {
 	private int station_no;
 	private String station_nm;
-	private String lat;
-	private String lon;
+	private double lat;
+	private double lon;
 
 	@Getter
 	@Setter
+	@ToString
 	public static class Request {
 		private String station_nm;
-		private String lat;
-		private String lon;
+		private double lat;
+		private double lon;
 	}
 
 	@Getter

@@ -1,26 +1,36 @@
 package com.bustracker.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Getter
+@ToString
 @AllArgsConstructor
 @Builder
 public class Bus {
 
 	private int seq_no;
-	private String lat;
-	private String lon;
+	private double lat;
+	private double lon;
 	private double accuracy;
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date arrivaltime;
 
 	@Getter
 	@Setter
+	@ToString
 	public static class Request {
-		private String lat;
-		private String lon;
+		private double lat;
+		private double lon;
 		private double accuracy;
+
+		@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+		@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 		private Date arrivaltime;
 	}
 

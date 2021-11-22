@@ -63,4 +63,21 @@ public class BusController {
 		return new Bus.Response<>(status.value(), msg, busList);
 	}
 
+
+	@PostMapping
+	public Bus.Response<?> newBusLog(@RequestBody Bus.Request bus) {
+		String msg = "ok";
+		HttpStatus status;
+
+		logger.info(bus);
+		try {
+			busService.add(bus);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			msg = e.getMessage();
+			status = HttpStatus.BAD_REQUEST;
+		}
+		return new Bus.Response<>(status.value(), msg, bus);
+	}
+
 }
