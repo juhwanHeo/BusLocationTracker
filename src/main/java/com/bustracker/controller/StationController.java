@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/api/stations")
 public class StationController {

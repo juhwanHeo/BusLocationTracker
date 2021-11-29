@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/api/bus-logs")
 public class BusController {
