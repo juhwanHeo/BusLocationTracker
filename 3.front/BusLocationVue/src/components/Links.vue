@@ -19,7 +19,7 @@
 
       <v-spacer class="hidden-sm-and-down" />
 
-      <v-col
+      <!-- <v-col
         cols="12"
         md="auto"
       >
@@ -30,7 +30,7 @@
             class="text-decoration-none"
           >Vuetify</a>
         </div>
-      </v-col>
+      </v-col> -->
     </v-row>
   </v-container>
 </template>
@@ -41,22 +41,22 @@
 
     data: () => ({
       links: [
-        {
-          href: 'https://vuetifyjs.com/',
-          text: 'Vuetify Docs',
-        },
-        {
-          href: '#',
-          text: 'About Us',
-        },
-        {
-          href: '#',
-          text: 'Blog',
-        },
-        {
-          href: '#',
-          text: 'Licenses',
-        },
+        // {
+        //   href: 'https://vuetifyjs.com/',
+        //   text: 'Vuetify Docs',
+        // },
+        // {
+        //   href: '#',
+        //   text: 'About Us',
+        // },
+        // {
+        //   href: '#',
+        //   text: 'Blog',
+        // },
+        // {
+        //   href: '#',
+        //   text: 'Licenses',
+        // },
       ],
     }),
   }

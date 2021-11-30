@@ -19,6 +19,22 @@
 
     </select>
 
+    <select id="getCurrent" resultType="com.bustracker.dto.Bus">
+        select
+            *
+        from
+            bus_log
+        where
+            seq_no =
+                (
+                    select
+                        max(seq_no)
+                    from
+                        bus_log
+                )
+
+    </select>
+
     <insert id="add" parameterType="com.bustracker.dto.Bus">
         insert into
             bus_log

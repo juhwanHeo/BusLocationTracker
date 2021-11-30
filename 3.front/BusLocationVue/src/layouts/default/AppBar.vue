@@ -24,11 +24,11 @@
 
     <v-spacer />
 
-    <default-search class="hidden-sm-and-down" />
+    <!-- <default-search class="hidden-sm-and-down" /> -->
 
     <default-go-home />
 
-    <default-notifications />
+    <!-- <default-notifications /> -->
 
     <default-account />
   </v-app-bar>

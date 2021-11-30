@@ -12,8 +12,8 @@
     name: 'App',
     metaInfo: {
       title: 'App',
-      titleTemplate: '%s | Material Dashboard Free',
-      htmlAttrs: { lang: 'en' },
+      titleTemplate: '%s ',
+      htmlAttrs: { lang: 'kr' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

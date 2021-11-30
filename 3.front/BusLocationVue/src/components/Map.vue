@@ -1,12 +1,23 @@
 <template>
     <div>
-    <div id="map"></div>
-    <div class="button-group">
-        <button @click="changeSize(0)">Hide</button>
-        <button @click="changeSize(600)">show</button>
-        <button @click="displayInfoWindow">infowindow</button>
+        <div id="map">
+        </div>
+        <v-fab-transition>
+            <v-btn
+                :loading=isLoding
+                @click=reload()
+                color="green"
+                dark
+                absolute
+                bottom
+                right
+                fab
+            >
+                <v-icon>mdi-refresh</v-icon>
+            </v-btn>
+        </v-fab-transition>
+
     </div>
-</div>
 </template>
 
 <script>
@@ -17,8 +28,12 @@ export default {
         return {
             map: null,
             stationPosition: null,
+            currentBus: null,
             markers: [],
             infowindow: null,
+            image: require('@/assets/bus.svg'),
+            loading: null,
+            isLoding: true
         };
     },
     mounted() {
@@ -31,12 +46,8 @@ export default {
             script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=b37ad6a5417816603a3753a79e838f06";
             document.head.appendChild(script);
         }
-        this.getStations();
-    },
-    watch: {
-        stationPosition(position) {
-            if(position) this.displayMarker();
-        }
+
+        this.loading = setInterval(this.displayMarker, 1000);
     },
     methods: {
         initMap() {
@@ -47,38 +58,54 @@ export default {
             };
             this.map = new kakao.maps.Map(container, options);
         },
-        changeSize(size) {
-            const container = document.getElementById("map");
-            container.style.width = `${size}%`;
-            container.style.height = `${size}px`;
-            this.map.relayout();
-        },
-        displayMarker() {
-            if (this.markers.length > 0) {
-                this.markers.forEach((marker) => marker.setMap(null));
-            }
-
-            // alert(JSON.stringify(this.stationPosition));
-            const positions = this.stationPosition.map(
-                (position) => new kakao.maps.LatLng(position.lat, position.lon)
-            );
-
-            if (positions.length > 0) {
-                this.markers = positions.map(
-                    (position) =>
-                    new kakao.maps.Marker({
-                        map: this.map,
-                        position,
-                    })
+        async displayMarker() {
+            if (this.stationPosition !== null && this.currentBus !== null) {
+                clearInterval(this.loading);
+                if (this.markers.length > 0) {
+                    this.markers.forEach((marker) => marker.setMap(null));
+                }
+                const positions = this.stationPosition.map(
+                    (position) => new kakao.maps.LatLng(position.lat, position.lon)
                 );
 
-                const bounds = positions.reduce(
-                    (bounds, latlng) => bounds.extend(latlng),
-                    new kakao.maps.LatLngBounds()
-                );
+                if (positions.length > 0) {
+                    this.markers = positions.map(
+                        (position) =>
+                        new kakao.maps.Marker({
+                            map: this.map,
+                            position
+                        })
+                    );
 
-                this.map.setBounds(bounds);
+                    var icon = new kakao.maps.MarkerImage(
+                        this.image,
+                        new kakao.maps.Size(31, 35),
+                        {
+                            offset: new kakao.maps.Point(16, 34),
+                            alt: "마커 ex",
+                        }
+                    );
+
+                    this.markers.push(new kakao.maps.Marker({
+                            map: this.map,
+                            position : new kakao.maps.LatLng(this.currentBus.lat, this.currentBus.lon),
+                            image: icon
+                        }));
+
+                    const bounds = positions.reduce(
+                        (bounds, latlng) => bounds.extend(latlng),
+                        new kakao.maps.LatLngBounds()
+                    );
+
+                    this.map.setBounds(bounds);
+                    this.isLoding=false;
+                }
             }
+            else {
+                this.getStations();
+                this.getCurrentBus();
+            }
+
         },
         displayInfoWindow() {
             if (this.infowindow && this.infowindow.getMap()) {
@@ -101,7 +128,7 @@ export default {
             this.map.setCenter(iwPosition);
         },
         async getStations() {
-            axios.get('http://localhost:3003/api/stations/')
+            await axios.get('http://localhost:3003/api/stations/')
                 .then((result) => {
                     console.log(result)
                     this.stationPosition = result.data.data
@@ -109,6 +136,27 @@ export default {
                 .catch((err) => {
                     console.log(err)
                 })
+        },
+        async getCurrentBus() {
+            await axios.get('http://localhost:3003/api/bus-logs/current')
+                .then((result) => {
+                    console.log(result)
+                    this.currentBus = result.data.data
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        },
+        async reload() {
+            if (this.markers.length > 0) {
+                this.markers.forEach((marker) => marker.setMap(null));
+            }
+            this.isLoding = true;
+            setTimeout(() => {
+                this.getStations();
+                this.getCurrentBus();
+                this.displayMarker();
+            }, 1000)
         }
     },
 };
@@ -125,10 +173,5 @@ export default {
     margin: 10px 0px;
 }
 
-button {
-    border-radius: 10px;
-    border: 2px solid black;
-    padding: 10px;
-    margin: 0 3px;
-}
+
 </style>

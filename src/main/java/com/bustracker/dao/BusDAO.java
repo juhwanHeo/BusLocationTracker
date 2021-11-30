@@ -12,6 +12,9 @@ import java.util.Map;
 public interface BusDAO {
     List<Bus> get(Map<String, Object> map);
 
+
+    Bus getCurrent();
+
     void add(Bus.Request bus);
 
 }

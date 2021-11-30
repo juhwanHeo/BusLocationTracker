@@ -28,6 +28,16 @@ public class BusService {
 		return bus;
 	}
 
+	public Bus getCurrent(){
+		Bus bus = null;
+		try {
+			bus = busDAO.getCurrent();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return bus;
+	}
+
 	public List<Bus> getList(Map<String, Object> map) {
 		return busDAO.get(map);
 	}

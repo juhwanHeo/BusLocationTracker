@@ -17,31 +17,31 @@ const state = {
       icon: 'mdi-map-marker',
       to: '/components/maps/',
     },
-    {
-      title: 'User Profile',
-      icon: 'mdi-account',
-      to: '/components/profile/',
-    },
-    {
-      title: 'Typography',
-      icon: 'mdi-format-font',
-      to: '/components/typography/',
-    },
-    {
-      title: 'Icons',
-      icon: 'mdi-chart-bubble',
-      to: '/components/icons/',
-    },
-    {
-      title: 'Notifications',
-      icon: 'mdi-bell',
-      to: '/components/notifications/',
-    },
-    {
-      title: 'Regular Tables',
-      icon: 'mdi-clipboard-outline',
-      to: '/tables/regular/',
-    },
+    // {
+    //   title: 'User Profile',
+    //   icon: 'mdi-account',
+    //   to: '/components/profile/',
+    // },
+    // {
+    //   title: 'Typography',
+    //   icon: 'mdi-format-font',
+    //   to: '/components/typography/',
+    // },
+    // {
+    //   title: 'Icons',
+    //   icon: 'mdi-chart-bubble',
+    //   to: '/components/icons/',
+    // },
+    // {
+    //   title: 'Notifications',
+    //   icon: 'mdi-bell',
+    //   to: '/components/notifications/',
+    // },
+    // {
+    //   title: 'Regular Tables',
+    //   icon: 'mdi-clipboard-outline',
+    //   to: '/tables/regular/',
+    // },
   ],
 }
 

@@ -46,6 +46,25 @@ public class BusController {
 		return new Bus.Response<>(status.value(), msg, bus);
 	}
 
+	@GetMapping(value = "/current")
+	public Bus.Response<?> getCurrent() {
+		String msg = "ok";
+		HttpStatus status;
+		Bus bus = null;
+
+		try {
+			bus = busService.getCurrent();
+			if (bus == null) throw new Exception("not found bus");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			msg = e.getMessage();
+			status = HttpStatus.BAD_REQUEST;
+		}
+
+		logger.info("[bus]: " + bus);
+		return new Bus.Response<>(status.value(), msg, bus);
+	}
+
 	@GetMapping
 	public Bus.Response<?> gets() {
 		String msg = "ok";
