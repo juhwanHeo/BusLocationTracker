@@ -16,6 +16,7 @@
                 <v-icon>mdi-refresh</v-icon>
             </v-btn>
         </v-fab-transition>
+        <button @click="dispalyPolyline()">polyline</button>
 
     </div>
 </template>
@@ -28,9 +29,11 @@ export default {
         return {
             map: null,
             stationPosition: null,
+            busLogs: null,
             currentBus: null,
             markers: [],
             infowindow: null,
+            polyline: null,
             image: require('@/assets/bus.svg'),
             loading: null,
             isLoding: true
@@ -47,7 +50,7 @@ export default {
             document.head.appendChild(script);
         }
 
-        this.loading = setInterval(this.displayMarker, 1000);
+        this.loading = setInterval(this.init, 1000);
     },
     methods: {
         initMap() {
@@ -58,54 +61,101 @@ export default {
             };
             this.map = new kakao.maps.Map(container, options);
         },
-        async displayMarker() {
-            if (this.stationPosition !== null && this.currentBus !== null) {
+        init() {
+            if (
+                this.stationPosition !== null
+                && this.currentBus !== null
+                && this.busLogs != null
+                ) {
                 clearInterval(this.loading);
-                if (this.markers.length > 0) {
-                    this.markers.forEach((marker) => marker.setMap(null));
-                }
-                const positions = this.stationPosition.map(
-                    (position) => new kakao.maps.LatLng(position.lat, position.lon)
-                );
+                this.displayMarker();
+                this.dispalyPolyline();
 
-                if (positions.length > 0) {
-                    this.markers = positions.map(
-                        (position) =>
-                        new kakao.maps.Marker({
-                            map: this.map,
-                            position
-                        })
-                    );
+                this.isLoding=false;
 
-                    var icon = new kakao.maps.MarkerImage(
-                        this.image,
-                        new kakao.maps.Size(31, 35),
-                        {
-                            offset: new kakao.maps.Point(16, 34),
-                            alt: "마커 ex",
-                        }
-                    );
-
-                    this.markers.push(new kakao.maps.Marker({
-                            map: this.map,
-                            position : new kakao.maps.LatLng(this.currentBus.lat, this.currentBus.lon),
-                            image: icon
-                        }));
-
-                    const bounds = positions.reduce(
-                        (bounds, latlng) => bounds.extend(latlng),
-                        new kakao.maps.LatLngBounds()
-                    );
-
-                    this.map.setBounds(bounds);
-                    this.isLoding=false;
-                }
             }
             else {
                 this.getStations();
                 this.getCurrentBus();
+                this.getBusLogs();
+
+                this.isLoding=true;
+            }
+        },
+        reload() {
+            if (this.markers.length > 0) {
+                this.markers.forEach((marker) => marker.setMap(null));
             }
 
+            this.polyline.setMap(null);
+            this.isLoding = true;
+            setTimeout(() => {
+                this.getStations();
+                this.getCurrentBus();
+                this.getBusLogs();
+
+                this.displayMarker();
+                this.dispalyPolyline();
+                this.isLoding = false;
+            }, 1000)
+        },
+        displayMarker() {
+            if (this.markers.length > 0) {
+                this.markers.forEach((marker) => marker.setMap(null));
+            }
+            const positions = this.stationPosition.map(
+                (position) => new kakao.maps.LatLng(position.lat, position.lon)
+            );
+
+            if (positions.length > 0) {
+                this.markers = positions.map(
+                    (position) =>
+                    new kakao.maps.Marker({
+                        map: this.map,
+                        position
+                    })
+                );
+
+                var icon = new kakao.maps.MarkerImage(
+                    this.image,
+                    new kakao.maps.Size(31, 35),
+                    {
+                        offset: new kakao.maps.Point(16, 34),
+                        alt: "마커 ex",
+                    }
+                );
+
+                this.markers.push(new kakao.maps.Marker({
+                        map: this.map,
+                        position : new kakao.maps.LatLng(this.currentBus.lat, this.currentBus.lon),
+                        image: icon
+                    }));
+
+                const bounds = positions.reduce(
+                    (bounds, latlng) => bounds.extend(latlng),
+                    new kakao.maps.LatLngBounds()
+                );
+
+                this.map.setBounds(bounds);
+            }
+
+
+        },
+        dispalyPolyline() {
+            const paths = this.busLogs.map(
+                (position) => new kakao.maps.LatLng(position.lat, position.lon)
+            );
+
+            this.polyline = new kakao.maps.Polyline({
+                map: this.map,
+                endArrow: true,
+                path: paths,
+                strokeWeight: 2,
+                strokeColor: '#F10000',
+                strokeOpacity: 0.8,
+                strokeStyle: 'solid'
+            });
+            this.polyline.setMap(this.map); // 지도에 올린다.
         },
         displayInfoWindow() {
             if (this.infowindow && this.infowindow.getMap()) {
@@ -130,8 +180,18 @@ export default {
         async getStations() {
             await axios.get('http://localhost:3003/api/stations/')
                 .then((result) => {
-                    console.log(result)
+                    console.log("stations: \n" + JSON.stringify(result));
                     this.stationPosition = result.data.data
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        },
+        async getBusLogs() {
+            await axios.get('http://localhost:3003/api/bus-logs/')
+                .then((result) => {
+                    console.log("bus Logs: \n" + JSON.stringify(result));
+                    this.busLogs = result.data.data
                 })
                 .catch((err) => {
                     console.log(err)
@@ -140,23 +200,12 @@ export default {
         async getCurrentBus() {
             await axios.get('http://localhost:3003/api/bus-logs/current')
                 .then((result) => {
-                    console.log(result)
+                    console.log("currentBus: \n" + JSON.stringify(result));
                     this.currentBus = result.data.data
                 })
                 .catch((err) => {
                     console.log(err)
                 })
-        },
-        async reload() {
-            if (this.markers.length > 0) {
-                this.markers.forEach((marker) => marker.setMap(null));
-            }
-            this.isLoding = true;
-            setTimeout(() => {
-                this.getStations();
-                this.getCurrentBus();
-                this.displayMarker();
-            }, 1000)
         }
     },
 };

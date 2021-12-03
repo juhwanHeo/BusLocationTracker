@@ -7,11 +7,11 @@ const state = {
   drawerImage: true,
   mini: false,
   items: [
-    {
-      title: 'Dashboard',
-      icon: 'mdi-view-dashboard',
-      to: '/',
-    },
+    // {
+    //   title: 'Dashboard',
+    //   icon: 'mdi-view-dashboard',
+    //   to: '/',
+    // },
     {
       title: 'Maps',
       icon: 'mdi-map-marker',
