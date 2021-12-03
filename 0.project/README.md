@@ -19,17 +19,24 @@
 ## D. 프로젝트 개발 결과물 소개 (+ 다이어그램)
 버스운행이 시작되면 버스의 위치를 서버에 전송하여 `Bus_Log` 테이블에 위치 정보를 저장하고,  
 사용자는 웹 서비스에 접속하여 버스 정류장 위치와 운행 로그를 서버에 요청하여  
-지도 화면에 `마커`와 `폴리라인`으로 출력합니다.
-
+지도 화면에 `마커`와 `폴리라인`으로 출력합니다.  
+ 
+![diagram](https://user-images.githubusercontent.com/47820142/144562178-62aab0f0-4d48-426b-9cdd-4ac99e056473.PNG)
+  
 현재 버스의 현재 위치를 전송할 `버스(안드로이드)`는 구현을 못한 상태입니다.   
 
- [이미지]
 ## E. 개발 결과물을 사용하는 방법 소개(+ 프로그램 구동 화면 스크린샷 첨부)
 - ### 1, [웹 접속](http://localhost:8080/components/maps/) (http://localhost:8080/components/maps/)
   - 웹에 접속하여 정류장 위치, 현재 버스 위치, 운행한 경로 등을 볼 수 있다.
-  
+  ![webIntro](https://user-images.githubusercontent.com/47820142/144562285-43c57157-5763-4882-b17a-9d37d41683c4.PNG)
 - ### 2, 리로딩 버튼
   - 버스 운행 정보를 갱신한다.
+  - 갱신 전
+  ![reloadBefore](https://user-images.githubusercontent.com/47820142/144562310-57b41d1c-0270-4e59-96b8-139a6872c20a.PNG)
+  - 갱신 중
+  ![reloading](https://user-images.githubusercontent.com/47820142/144562297-bd9cf9a4-6eff-4ed1-a2f2-9fe8952771b8.PNG)
+  - 갱신 후
+  ![reloadAfter](https://user-images.githubusercontent.com/47820142/144562291-d3b15958-0960-402a-b25a-493400631af3.PNG)
 
 
 ## F. 개발 결과물의 필요성 및 활용방안
