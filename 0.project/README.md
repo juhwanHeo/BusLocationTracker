@@ -25,6 +25,8 @@
   
 현재 버스의 현재 위치를 전송할 `버스(안드로이드)`는 구현을 못한 상태입니다.   
 
+![diagram2](https://user-images.githubusercontent.com/47820142/144579209-e53c9e2b-39c4-4608-9dea-a75adcaab859.PNG)
+  
 ## E. 개발 결과물을 사용하는 방법 소개(+ 프로그램 구동 화면 스크린샷 첨부)
 - ### 1, [웹 접속](http://localhost:8080/components/maps/) (http://localhost:8080/components/maps/)
   - 웹에 접속하여 정류장 위치, 현재 버스 위치, 운행한 경로 등을 볼 수 있다.
