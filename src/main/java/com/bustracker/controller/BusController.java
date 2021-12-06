@@ -92,7 +92,7 @@ public class BusController {
 		logger.info(bus);
 		try {
 			busService.add(bus);
-			status = HttpStatus.OK;
+			status = HttpStatus.CREATED;
 		} catch (Exception e) {
 			msg = e.getMessage();
 			status = HttpStatus.BAD_REQUEST;
