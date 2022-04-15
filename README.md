@@ -7,7 +7,7 @@
   - [2021.11.30](https://github.com/juhwanHeo/BusLocationTrackServer/blob/master/0.changeLogs/2021.11.30.md)
   - [2021.12.03](https://github.com/juhwanHeo/BusLocationTrackServer/blob/master/0.changeLogs/2021.12.03.md)
 
-## 0, Project READMD [(링크)](https://github.com/juhwanHeo/BusLocationTrackServer/blob/master/0.project/README.md)
+## 0, Project READMD [(링크)](https://github.com/juhwanHeo/BusLocationTrackServer/tree/master/0.project)
 
 ## 1, Database [(링크)](https://github.com/juhwanHeo/BusLocationTrackServer/tree/master/1.database)
 
