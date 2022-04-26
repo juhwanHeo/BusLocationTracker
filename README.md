@@ -1,4 +1,4 @@
-# BusLocationTrackServer
+# BusLocationTracker
 
 ## 0, ChangeLog 
   - [2021.11.18](https://github.com/juhwanHeo/BusLocationTrackServer/blob/master/0.changeLogs/2021.11.18.md)
