@@ -1,41 +1,32 @@
 package com.bustracker.service;
 
-import com.bustracker.dao.StationDAO;
-import com.bustracker.dto.Station;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.bustracker.entity.Station;
+import com.bustracker.repository.StationRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
+@Slf4j
 @Service
 public class StationService {
 
-	private static final Logger logger = LogManager.getLogger(StationService.class);
-
 	@Autowired
-	private StationDAO stationDAO;
+	private StationRepository stationRepository;
 
-	public Station get(Map<String, Object> map) {
-		Station station = null;
-
-		try {
-			station = stationDAO.get(map).get(0);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		return station;
+	public Station findById(String id) {
+		return stationRepository.findById(id)
+				.orElseThrow(()-> new RuntimeException("Not Found Station by id: " + id));
 	}
 
-	public List<Station> getList(Map<String, Object> map) {
-		return stationDAO.get(map);
+	public List<Station> findAll() {
+		return stationRepository.findAll();
+
 	}
 
-	public void add(Station.Request station) {
-		stationDAO.add(station);
+	public Station insert(Station station) {
+		return stationRepository.save(station);
+
 	}
-
-
 }
