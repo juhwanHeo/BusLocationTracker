@@ -1,0 +1,31 @@
+package com.bustracker.service;
+
+import com.bustracker.entity.Bus;
+import com.bustracker.status.BusStatus;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@Slf4j
+@SpringBootTest
+class BusServiceTest {
+
+    @Autowired
+    private BusService busService;
+
+    @Test
+    public void saveBusTest() {
+        Bus bus = Bus.builder()
+                .lat(37.123)
+                .lon(123.123)
+                .accuracy(90)
+                .status(BusStatus.IN_PROGRESS)
+                .build();
+
+        busService.saveBus(bus);
+
+    }
+}

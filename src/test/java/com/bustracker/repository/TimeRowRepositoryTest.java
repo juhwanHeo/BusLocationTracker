@@ -21,6 +21,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class TimeRowRepositoryTest {
 
+
+    @Autowired
+    private TimeTableRepository timeTableRepository;
+
     @Autowired
     private TimeRowRepository timeRowRepository;
 
@@ -29,12 +33,27 @@ class TimeRowRepositoryTest {
 
     @Test
     public void setUp() {
+        TimeTable timetable = timeTableRepository.findAll().get(0);
+        List<TimeRow> timeRowList = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            TimeRow timeRow = TimeRow.builder()
+                    .timetableId(timetable.getId())
+                    .order(i + 1)
+                    .build();
 
+            timeRowList.add(timeRow);
+        }
+
+        timeRowRepository.saveAll(timeRowList);
+    }
+
+    @Test
+    public void updateTest() {
         List<String> timeIdList = timeRepository.findAll().stream()
                 .map(Time::getId)
                 .collect(Collectors.toList());
 
-        TimeRow timeRow = new TimeRow(null, 1, timeIdList);
+        TimeRow timeRow = timeRowRepository.findAll().get(0);
 
         timeRowRepository.save(timeRow);
     }

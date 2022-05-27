@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -20,25 +19,20 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Document(collection = "c_time_table")
-public class TimeTable {
+public class TimeTableHistory {
 
 	@Id
-	@JsonProperty(value = "id", index = 1)
 	private String id;
 
-//	@JsonProperty("timeRowIds")
-//	private List<String> timeRowIds;
+	@JsonProperty("timeRowIds")
+	private List<String> timeRowIds;
 
 	@CreatedDate
-	@JsonProperty(value = "inputDate", index = 2)
+	@JsonProperty("inputDate")
 	private String inputDate;
 
 	@LastModifiedDate
-	@JsonProperty(value = "updateDate", index = 3)
+	@JsonProperty("updateDate")
 	private String updateDate;
-
-	@Transient
-	@JsonProperty(value = "timeRowList", index = 4)
-	private List<TimeRow> timeRowList;
 
 }

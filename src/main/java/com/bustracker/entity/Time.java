@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
@@ -18,15 +19,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Time {
 
     @Id
+    @JsonProperty(value = "id", index = 0)
     private String id;
 
-    @JsonProperty("order")
+    @JsonProperty(value = "timeRowId", index = 1)
+    private String timeRowId;
+
+    @JsonProperty(value = "order", index = 2)
     private int order;
 
-    @JsonProperty("stationId")
+    @JsonProperty(value = "stationId", index = 3)
     private String stationId;
 
-    @JsonProperty("startTime")
-    private String startTime;
+    @JsonProperty(value = "time", index = 4)
+    private String time;
+
+    @Transient
+    @JsonProperty(value = "station", index = 5)
+    private Station station;
 
 }

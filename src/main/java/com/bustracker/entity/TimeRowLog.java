@@ -18,8 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "c_time_row")
-public class TimeRow {
+@Document(collection = "c_time_row_log")
+public class TimeRowLog {
 
 	@Id
 	@JsonProperty(value = "id", index = 0)
@@ -49,22 +49,5 @@ public class TimeRow {
 	@Transient
 	@JsonProperty(value = "timeList", index = 8)
 	private List<Time> timeList;
-
-
-	@Transient
-	public TimeRowLog convertLog() {
-		return TimeRowLog.builder()
-				.timetableId(timetableId)
-				.order(order)
-				.startTime(startTime)
-				.startTimeMillis(startTimeMillis)
-				.endTIme(endTIme)
-				.endTimeMillis(endTimeMillis)
-				.status(status)
-				.timeList(timeList)
-				.build();
-
-	}
-
 
 }

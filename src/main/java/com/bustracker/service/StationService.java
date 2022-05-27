@@ -20,6 +20,10 @@ public class StationService {
 				.orElseThrow(()-> new RuntimeException("Not Found Station by id: " + id));
 	}
 
+	public List<Station> findByStationName(String name) {
+		return stationRepository.findByStationName(name);
+	}
+
 	public List<Station> findAll() {
 		return stationRepository.findAll();
 
@@ -28,5 +32,9 @@ public class StationService {
 	public Station insert(Station station) {
 		return stationRepository.save(station);
 
+	}
+
+	public void delete(String id) {
+		stationRepository.deleteById(id);
 	}
 }

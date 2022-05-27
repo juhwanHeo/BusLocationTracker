@@ -33,7 +33,7 @@ public class RestExceptionHandler {
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .code(HttpStatus.BAD_REQUEST.value())
                 .timestamp(new Date())
-                .msg(e.getMessage())
+                .msg("ResourceNotFound Exception: " + e.getMessage())
                 .details(request.getDescription(false))
                 .build();
 
