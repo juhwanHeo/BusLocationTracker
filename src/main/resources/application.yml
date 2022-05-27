@@ -1,24 +1,23 @@
 spring:
   profiles: local
-  datasource:
-    url: jdbc:log4jdbc:postgresql://192.168.99.101:5432/postgres
-    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    username: juhwan
-    password: test123
-  servlet:
-    multipart:
-      enabled: true
-      location: "./temp"
-      max-file-size: 100MB
-      max-request-size: 100MB
+  data:
+    mongodb:
+      uri: mongodb://mongo:mongo123@localhost:9017
+      database: test
+
   devtools:
     restart:
       enabled: false
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: group-id-test
+      auto-offset-reset: earliest
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
 server:
   port: 3003
-logging:
-  config: classpath:log4j2_local.yml  
-  
-mybatis:
- mapper-locations: classpath:mapper/*.xml
- type-aliases-package: com.bustracker.dto

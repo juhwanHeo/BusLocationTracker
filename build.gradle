@@ -1,62 +1,46 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.6.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'java'
+    id 'org.springframework.boot' version '2.7.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
 }
 
 group = 'com.bustracker'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 configurations {
-	developmentOnly
-	runtimeClasspath {
-		extendsFrom developmentOnly
-	}
-	all {
-    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-  }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
- 	//security
- 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	 
-	// https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
-	implementation 'javax.xml.bind:jaxb-api:2.3.0' // , name: 'jaxb-api', version: '2.3.0'
+    implementation 'org.springframework.kafka:spring-kafka'
 
-	// jdbc
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	
-	// postgresql
-	implementation 'org.postgresql:postgresql:42.2.14' //, name: 'postgresql', version: '42.2.14'
+    compileOnly 'org.projectlombok:lombok'
+    testImplementation 'org.projectlombok:lombok'
 
-	// log4j2
-	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.3'//, name: 'jackson-dataformat-yaml', version: '2.10.3'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 
-	// log4jdbc
-	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16'//, name: 'log4jdbc-log4j2-jdbc4', version: '1.16'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.8.2'
 
-	// mybatis
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
-
-	// lombok
-	implementation 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
-test { 
-	useJUnitPlatform()
+tasks.named('test') {
+    useJUnitPlatform()
 }

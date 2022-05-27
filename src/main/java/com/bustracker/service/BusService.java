@@ -1,49 +1,46 @@
 package com.bustracker.service;
 
-import com.bustracker.dao.BusDAO;
-import com.bustracker.dto.Bus;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.bustracker.entity.Bus;
+import com.bustracker.entity.TimeRow;
+import com.bustracker.entity.TimeRowLog;
+import com.bustracker.repository.BusRepository;
+import com.bustracker.status.BusStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BusService {
 
-	private static final Logger logger = LogManager.getLogger(BusService.class);
 
-	@Autowired
-	private BusDAO busDAO;
+    @Autowired
+    private BusRepository busRepository;
 
-	public Bus get(Map<String, Object> map){
-		Bus bus = null;
-		try {
-			bus = busDAO.get(map).get(0);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		return bus;
-	}
+    @Autowired
+    private TimeRowService timeRowService;
 
-	public Bus getCurrent(){
-		Bus bus = null;
-		try {
-			bus = busDAO.getCurrent();
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		return bus;
-	}
+    @Autowired
+    private TimeRowLogService timeRowLogService;
 
-	public List<Bus> getList(Map<String, Object> map) {
-		return busDAO.get(map);
-	}
+    public List<Bus> findRunning() {
+        return busRepository.findRunning();
+    }
 
-	public void add(Bus.Request bus) {
-		busDAO.add(bus);
-	}
+    public List<Bus> updateComplete() {
+        List<Bus> busList = busRepository.findRunning();
+        for (Bus bus : busList) bus.setStatus(BusStatus.COMPLETE);
 
+        return busRepository.saveAll(busList);
+    }
+
+    public Bus saveBus(Bus bus) {
+        TimeRowLog timeRowLog = timeRowLogService.findCurrentTimeRow();
+        if (timeRowLog == null) {
+            TimeRow timeRow = timeRowService.findCurrentTimeRow();
+            timeRowLogService.save(timeRow.convertLog());
+        }
+        bus.setTimeRowLogId(timeRowLog.getId());
+        return busRepository.save(bus);
+    }
 }
