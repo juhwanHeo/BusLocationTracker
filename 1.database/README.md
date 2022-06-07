@@ -15,6 +15,7 @@ services:
       # MongoDB 계정 및 패스워드 설정 옵션
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo123
+      TZ: "Asia/Seoul"
     volumes:
       - /Users/user/juhwan/docker-compose/mongodb/data/db:/data/db
   mongo-express:
