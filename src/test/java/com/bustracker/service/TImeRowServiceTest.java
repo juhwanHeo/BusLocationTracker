@@ -20,4 +20,11 @@ class TImeRowServiceTest {
         List<TimeRow> timeRowList = timeRowService.findLastTimeRow();
         log.info("timeRow: {}", timeRowList);
     }
+
+    @Test
+    public void findCurrentTimeRowTest() {
+        TimeRow timeRow = timeRowService.findCurrentTimeRow();
+
+        log.info("timeRow: {}", timeRow);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -25,23 +26,23 @@ public class Bus {
 	@JsonProperty(value = "id", index = 1)
 	private String id;
 
-	@CreatedDate
-	@JsonProperty(value = "date", index = 2)
-	private Date date;
-
-	@JsonProperty(value = "timeRowLogId", index = 3)
+	@JsonProperty(value = "timeRowLogId", index = 2)
 	private String timeRowLogId;
 
-	@JsonProperty(value = "lat", index = 4)
+	@JsonProperty(value = "lat", index = 3)
 	private double lat;
 
-	@JsonProperty(value = "lon",index = 5)
+	@JsonProperty(value = "lon",index = 4)
 	private double lon;
 
-	@JsonProperty(value = "accuracy", index = 6)
+	@JsonProperty(value = "accuracy", index = 5)
 	private double accuracy;
 
-	@JsonProperty(value = "status",index = 7)
+	@JsonProperty(value = "status",index = 6)
 	private BusStatus status;
+
+	@CreatedDate
+	@JsonProperty(value = "inputDate", index = 7)
+	private LocalDateTime inputDate;
 
 }

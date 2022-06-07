@@ -28,12 +28,9 @@ public class BusController {
 
     @PostMapping
     public ResponseEntity<?> saveBus(
-//            @RequestParam String bus
             @RequestBody Bus bus
     ) {
         log.info("bus: {}", bus);
-//        return ResponseEntity.ok().body(busService.saveBus(bus));
-        return ResponseEntity.ok().body("ok");
+        return ResponseEntity.ok().body(busService.saveBus(bus));
     }
-
 }

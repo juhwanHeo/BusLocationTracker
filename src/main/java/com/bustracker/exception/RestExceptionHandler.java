@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @RestController
 @ControllerAdvice
@@ -18,7 +18,7 @@ public class RestExceptionHandler {
         e.printStackTrace();
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .timestamp(new Date())
+                .timestamp(LocalDateTime.now())
                 .msg(e.getMessage())
                 .details(request.getDescription(false))
                 .build();
@@ -27,12 +27,12 @@ public class RestExceptionHandler {
 
     }
 
-    @ExceptionHandler(ResourceNotFound.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public final ResponseEntity<?> handleRemittanceInvalidException(Exception e, WebRequest request) {
         e.printStackTrace();
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .code(HttpStatus.BAD_REQUEST.value())
-                .timestamp(new Date())
+                .timestamp(LocalDateTime.now())
                 .msg("ResourceNotFound Exception: " + e.getMessage())
                 .details(request.getDescription(false))
                 .build();

@@ -9,8 +9,8 @@ import java.io.IOException;
 @Service
 public class KafkaTimeConsumerService {
 
-    @KafkaListener(topics = "testTopic", groupId = "group-id-test", containerFactory = "timeRowListener")
-    public void consume(TimeRow timeRow) throws IOException {
-        System.out.println("receive timeRow: " + timeRow);
-    }
+//    @KafkaListener(topics = "testTopic", groupId = "group-id-test", containerFactory = "timeRowListener")
+//    public void consume(TimeRow timeRow) throws IOException {
+//        System.out.println("receive timeRow: " + timeRow);
+//    }
 }

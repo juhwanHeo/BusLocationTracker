@@ -1,0 +1,11 @@
+spring:
+  profiles: local
+  data:
+    mongodb:
+      uri: mongodb://mongo:mongo123@localhost:9017
+      database: test
+  devtools:
+    restart:
+      enabled: false
+server:
+  port: 3003

@@ -3,7 +3,9 @@ package com.bustracker.repository.custom;
 
 import com.bustracker.entity.TimeRowLog;
 
+import java.util.List;
+
 public interface TimeRowLogCustomRepository {
-    TimeRowLog findByCurrentTimeBetweenStartTimeAndEndTime(long currentTime);
+    TimeRowLog findRunning(long currentTime);
 
 }

@@ -2,12 +2,34 @@
 ## Database : Mongodb
 ### docker-compose
 ```yml
-# 준비중
+# 파일 규격 버전
+version: "3"
+services:
+  mongodb:
+    image: mongo
+    restart: always  # 컨테이너 실행 시 재시작
+    container_name: mongodb # 컨테이너 이름 설정
+    ports:
+      - "9017:27017"
+    environment:
+      # MongoDB 계정 및 패스워드 설정 옵션
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo123
+    volumes:
+      - /Users/user/juhwan/docker-compose/mongodb/data/db:/data/db
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "9018:8081"
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:mongo123@host.docker.internal:9017/
+    depends_on:
+      - mongodb
 ```
 
-## Database : PostgreSQL
+## Database : ~~PostgreSQL~~
 ### docker ( [참고](https://judo0179.tistory.com/96) )
-
 
 ```bash
 # 모든 컨테이너를 종료하고 삭제한다.

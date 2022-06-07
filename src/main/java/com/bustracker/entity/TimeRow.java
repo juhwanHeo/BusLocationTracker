@@ -1,6 +1,5 @@
 package com.bustracker.entity;
 
-import com.bustracker.status.TimeRowStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -11,6 +10,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Data
@@ -43,9 +44,6 @@ public class TimeRow {
 	@JsonProperty(value = "endTimeMillis", index = 6)
 	private long endTimeMillis;
 
-	@JsonProperty(value = "status", index = 7)
-	private TimeRowStatus status;
-
 	@Transient
 	@JsonProperty(value = "timeList", index = 8)
 	private List<Time> timeList;
@@ -56,15 +54,12 @@ public class TimeRow {
 		return TimeRowLog.builder()
 				.timetableId(timetableId)
 				.order(order)
+				.today(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
 				.startTime(startTime)
 				.startTimeMillis(startTimeMillis)
 				.endTIme(endTIme)
 				.endTimeMillis(endTimeMillis)
-				.status(status)
 				.timeList(timeList)
 				.build();
-
 	}
-
-
 }
