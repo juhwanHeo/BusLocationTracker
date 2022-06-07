@@ -11,10 +11,10 @@ public class TimeRowCustomRepositoryImpl extends BaseCustomRepository implements
 
     @Override
     public TimeRow findByCurrentTimeBetweenStartTimeAndEndTime(long currentTime) {
-
         Query query = new Query();
-        Criteria where = Criteria.where("status").is(TimeRowStatus.IN_PROGRESS);
+        Criteria where = new Criteria();
         where.orOperator(
+                Criteria.where("status").is(TimeRowStatus.IN_PROGRESS),
                 Criteria.where("startTimeMillis").gte(currentTime)
                         .and("endTimeMillis").lte(currentTime)
         );

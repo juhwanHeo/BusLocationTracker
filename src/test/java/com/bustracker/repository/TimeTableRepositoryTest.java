@@ -35,6 +35,11 @@ class TimeTableRepositoryTest {
     @Autowired
     private StationRepository stationRepository;
 
+    /*
+    *
+    * 데이터베이스
+    * 초기 세팅
+    * */
     @Test
     public void setUp() {
         /*
@@ -47,12 +52,28 @@ class TimeTableRepositoryTest {
                 .build();
 
         String[][] timeArray = {
+                {"06:40", "06:45", "06:50", "06:55"},
+                {"07:00", "07:05", "07:10", "07:15"},
                 {"07:20", "07:25", "07:30", "07:35"},
                 {"07:40", "07:45", "07:50", "07:55"},
-                {"08:20", "08:25", "08:30", "08:35"},
-                {"08:40", "08:45", "08:50", "08:55"},
-                {"15:40", "15:45", "15:50", "15:55"},
-                {"20:40", "20:45", "20:50", "20:55"},
+                {"07:58", "08:03", "08:08", "08:13"},
+                {"08:20", "08:25", "09:00", "09:05"},
+                {"09:10", "09:15", "09:25", "09:30"},
+                {"09:50", "09:55", "10:00", "10:05"},
+                {"10:40", "10:45", "10:50", "11:00"},
+                {"12:00", "12:05", "12:10", "12:15"},
+                {"13:50", "13:55", "14:00", "14:05"},
+                {"15:10", "15:15", "15:30", "15:35"},
+                {"16:00", "16:05", "16:20", "16:25"},
+                {"17:00", "17:05", "17:10", "17:15"},
+                {"17:40", "17:45", "17:50", "17:55"},
+                {"18:05", "18:10", "18:15", "18:20"},
+                {"18:30", "18:40", "18:45", "18:50"},
+                {"19:10", "19:15", "19:20", "19:25"},
+                {"19:30", "19:35", "19:40", "19:45"},
+                {"20:00", "20:05", "20:10", "20:15"},
+                {"20:20", "20:25", "20:30", "20:35"},
+
         };
 
         timeTableRepository.deleteAll();
@@ -83,10 +104,10 @@ class TimeTableRepositoryTest {
         List<List<Time>> timeList = new ArrayList<>();
         for (TimeRow timeRow : timeRowList) {
             List<Time> times = new ArrayList<>();
-            times.add(new Time(null, timeRow.getId(), 1, stationList.get(0).getId(), timeArray[index][0], null));
-            times.add(new Time(null, timeRow.getId(), 2, stationList.get(1).getId(), timeArray[index][1], null));
-            times.add(new Time(null, timeRow.getId(), 3, stationList.get(2).getId(), timeArray[index][2], null));
-            times.add(new Time(null, timeRow.getId(), 4, stationList.get(0).getId(), timeArray[index][3], null));
+            times.add(new Time(null, timeRow.getId(), 1, timeArray[index][0], stationList.get(0).getId(),  null));
+            times.add(new Time(null, timeRow.getId(), 2, timeArray[index][1], stationList.get(1).getId(),  null));
+            times.add(new Time(null, timeRow.getId(), 3, timeArray[index][2], stationList.get(2).getId(),  null));
+            times.add(new Time(null, timeRow.getId(), 4, timeArray[index][3], stationList.get(3).getId(),  null));
             timeList.add(times);
 
             timeRow.setStartTime(times.get(0).getTime());
@@ -98,7 +119,6 @@ class TimeTableRepositoryTest {
         }
         // start, endTIme
         // update
-        timeRowList.get(4).setStatus(TimeRowStatus.IN_PROGRESS);
         timeRowRepository.saveAll(timeRowList);
 
         timeRepository.deleteAll();

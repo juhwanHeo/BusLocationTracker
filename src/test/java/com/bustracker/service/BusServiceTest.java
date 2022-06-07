@@ -19,8 +19,8 @@ class BusServiceTest {
     @Test
     public void saveBusTest() {
         Bus bus = Bus.builder()
-                .lat(37.123)
-                .lon(123.123)
+                .lat(37.1234)
+                .lon(123.12356)
                 .accuracy(90)
                 .status(BusStatus.IN_PROGRESS)
                 .build();

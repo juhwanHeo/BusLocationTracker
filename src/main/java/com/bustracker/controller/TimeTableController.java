@@ -1,6 +1,6 @@
 package com.bustracker.controller;
 
-import com.bustracker.exception.ResourceNotFound;
+import com.bustracker.exception.ResourceNotFoundException;
 import com.bustracker.service.TimetableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ public class TimeTableController {
     private TimetableService timetableService;
 
     @GetMapping
-    public ResponseEntity<?> find() throws ResourceNotFound {
+    public ResponseEntity<?> find() throws ResourceNotFoundException {
         return ResponseEntity.ok().body(timetableService.find());
     }
 

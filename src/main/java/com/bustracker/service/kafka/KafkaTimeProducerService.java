@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class KafkaTimeProducerService {
 
-    private final KafkaTemplate<String, TimeRow> kafkaTemplate;
-
-    @Autowired
-    public KafkaTimeProducerService(KafkaTemplate<String, TimeRow> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
-
-    public void sendTimeRow(TimeRow timeRow)  {
-        kafkaTemplate.send("testTopic", timeRow);
-    }
+//    private final KafkaTemplate<String, TimeRow> kafkaTemplate;
+//
+//    @Autowired
+//    public KafkaTimeProducerService(KafkaTemplate<String, TimeRow> kafkaTemplate) {
+//        this.kafkaTemplate = kafkaTemplate;
+//    }
+//
+//    public void sendTimeRow(TimeRow timeRow)  {
+//        kafkaTemplate.send("testTopic", timeRow);
+//    }
 
 }

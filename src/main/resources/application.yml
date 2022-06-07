@@ -8,11 +8,11 @@ spring:
   devtools:
     restart:
       enabled: false
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: group-id-test
-      auto-offset-reset: earliest
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    consumer:
+#      group-id: group-id-test
+#      auto-offset-reset: earliest
   jpa:
     properties:
       hibernate:

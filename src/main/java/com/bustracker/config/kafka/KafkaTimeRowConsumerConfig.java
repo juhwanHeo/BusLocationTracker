@@ -14,32 +14,32 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class KafkaTimeRowConsumerConfig {
 
-    @Value("${spring.kafka.bootstrap-servers}")
-    private String bootstrapServers;
-
-    @Value("${spring.kafka.consumer.group-id}")
-    private String groupId;
-
-    @Bean
-    public ConsumerFactory<String, TimeRow> timeConsumer() {
-
-        Map<String, Object> configs = new HashMap<>();
-        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configs.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
-
-        return new DefaultKafkaConsumerFactory<>(
-                configs,
-                new StringDeserializer(),
-                new JsonDeserializer<>(TimeRow.class));
-    }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, TimeRow> timeRowListener() {
-        ConcurrentKafkaListenerContainerFactory<String, TimeRow> factory = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(timeConsumer());
-        return factory;
-    }
+//    @Value("${spring.kafka.bootstrap-servers}")
+//    private String bootstrapServers;
+//
+//    @Value("${spring.kafka.consumer.group-id}")
+//    private String groupId;
+//
+//    @Bean
+//    public ConsumerFactory<String, TimeRow> timeConsumer() {
+//
+//        Map<String, Object> configs = new HashMap<>();
+//        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+//        configs.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+//
+//        return new DefaultKafkaConsumerFactory<>(
+//                configs,
+//                new StringDeserializer(),
+//                new JsonDeserializer<>(TimeRow.class));
+//    }
+//
+//    @Bean
+//    public ConcurrentKafkaListenerContainerFactory<String, TimeRow> timeRowListener() {
+//        ConcurrentKafkaListenerContainerFactory<String, TimeRow> factory = new ConcurrentKafkaListenerContainerFactory<>();
+//        factory.setConsumerFactory(timeConsumer());
+//        return factory;
+//    }
 }

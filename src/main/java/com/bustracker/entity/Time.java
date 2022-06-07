@@ -28,11 +28,11 @@ public class Time {
     @JsonProperty(value = "order", index = 2)
     private int order;
 
-    @JsonProperty(value = "stationId", index = 3)
-    private String stationId;
-
-    @JsonProperty(value = "time", index = 4)
+    @JsonProperty(value = "time", index = 3)
     private String time;
+
+    @JsonProperty(value = "stationId", index = 4)
+    private String stationId;
 
     @Transient
     @JsonProperty(value = "station", index = 5)

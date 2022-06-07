@@ -14,23 +14,23 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+//@Configuration
 public class KafkaTimeRowProducerConfig {
 
-    @Value("${spring.kafka.bootstrap-servers}")
-    private String bootstrapServers;
-
-    @Bean
-    public ProducerFactory<String, TimeRow> producerFactory() {
-        Map<String, Object> configs = new HashMap<>();
-        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        return new DefaultKafkaProducerFactory<>(configs);
-    }
-
-    @Bean
-    public KafkaTemplate<String, TimeRow> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
-    }
+//    @Value("${spring.kafka.bootstrap-servers}")
+//    private String bootstrapServers;
+//
+//    @Bean
+//    public ProducerFactory<String, TimeRow> producerFactory() {
+//        Map<String, Object> configs = new HashMap<>();
+//        configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+//        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+//        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+//        return new DefaultKafkaProducerFactory<>(configs);
+//    }
+//
+//    @Bean
+//    public KafkaTemplate<String, TimeRow> kafkaTemplate() {
+//        return new KafkaTemplate<>(producerFactory());
+//    }
 }

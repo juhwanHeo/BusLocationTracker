@@ -7,10 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -28,26 +31,33 @@ public class TimeRowLog {
 	@JsonProperty(value = "timetableId", index = 1)
 	private String timetableId;
 
-	@JsonProperty(value = "order", index = 2)
+	@JsonProperty(value = "today", index = 2)
+	private String today;
+
+	@JsonProperty(value = "order", index = 3)
 	private int order;
 
-	@JsonProperty(value = "startTime", index = 3)
+	@JsonProperty(value = "startTime", index = 4)
 	private String startTime;
 
-	@JsonProperty(value = "startTimeMillis", index = 4)
+	@JsonProperty(value = "startTimeMillis", index = 5)
 	private long startTimeMillis;
 
-	@JsonProperty(value = "endTime", index = 5)
+	@JsonProperty(value = "endTime", index = 6)
 	private String endTIme;
 
-	@JsonProperty(value = "endTimeMillis", index = 6)
+	@JsonProperty(value = "endTimeMillis", index = 7)
 	private long endTimeMillis;
 
-	@JsonProperty(value = "status", index = 7)
+	@JsonProperty(value = "status", index = 8)
 	private TimeRowStatus status;
 
 	@Transient
-	@JsonProperty(value = "timeList", index = 8)
+	@JsonProperty(value = "timeList", index = 9)
 	private List<Time> timeList;
+
+	@CreatedDate
+	@JsonProperty(value = "inputDate", index = 10)
+	private LocalDateTime inputDate;
 
 }
