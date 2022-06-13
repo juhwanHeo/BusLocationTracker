@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -35,8 +35,13 @@ public class TimeRowLogService {
 
     public TimeRowLog findCurrentTimeRowLog() {
         long time = LocalTime.now().toNanoOfDay();
-        log.info("current: {}", time);
-        TimeRowLog timeRowLog = timeRowLogRepository.findRunning(time);
+        TimeRowLog timeRowLog = null;
+        try {
+            timeRowLog = timeRowLogRepository.findRunning(time);
+        } catch (Exception e) {
+            log.warn("{}", e.getMessage());
+        }
+
         return timeRowLog;
     }
 
@@ -48,14 +53,34 @@ public class TimeRowLogService {
         return timeRowLogRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not Running Bus by timeRowLog id: " + id));
     }
 
+    public List<TimeRowLog> findTodayTimeRowLog() {
+        return timeRowLogRepository.findByToday(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+    }
+
+    public List<TimeRowLog> findTodayLastTimeRow() {
+        return timeRowLogRepository.findByTodayLastTimeRow().stream()
+                .filter(timeRowLog -> {
+                    LocalTime endTime = LocalTime.parse(timeRowLog.getEndTIme());
+                    LocalTime nowTime = LocalTime.now();
+
+                    boolean isPass = nowTime.isBefore(endTime) || timeRowLog.getStatus() == TimeRowStatus.IN_PROGRESS;
+                    if (!isPass) {
+                        log.info("timeRowLog: {}",timeRowLog);
+                        timeRowLog.setStatus(TimeRowStatus.NOT_PROGRESS);
+                        timeRowLogRepository.save(timeRowLog);
+                    }
+
+                    return isPass;
+                })
+                .collect(Collectors.toList());
+    }
+
     /*
     * 운행 날짜 TimeRowLog 초기회
     * */
-    public void init(boolean isForce) throws ExistsTimeRowLogException {
+    public void initToday(boolean isForce) throws ExistsTimeRowLogException {
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-
         List<TimeRowLog> timeRowLogList = timeRowLogRepository.findByToday(today);
-
         log.info("timeRowLog: {}", timeRowLogList);
 
         if (isForce || (timeRowLogList == null || timeRowLogList.isEmpty())) {
@@ -66,7 +91,6 @@ public class TimeRowLogService {
                 LocalTime startTime = LocalTime.parse(newTimeRowLog.getStartTime());
                 LocalTime endTime = LocalTime.parse(newTimeRowLog.getEndTIme());
                 LocalTime nowTime = LocalTime.now();
-
                 newTimeRowLog.setToday(today);
 
                 log.info("now: {}:{}", nowTime.getHour(), nowTime.getMinute());

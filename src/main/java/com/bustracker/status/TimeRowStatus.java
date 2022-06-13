@@ -8,7 +8,7 @@ public enum TimeRowStatus {
     IN_PROGRESS,
 
     // 운행 종료
-    COMPLETE,
+    COMPLETED,
 
     // 운행 안함
     NOT_PROGRESS,

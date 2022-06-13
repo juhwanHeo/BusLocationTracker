@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -59,5 +60,9 @@ public class TimeRowLog {
 	@CreatedDate
 	@JsonProperty(value = "inputDate", index = 10)
 	private LocalDateTime inputDate;
+
+	@LastModifiedDate
+	@JsonProperty(value = "updateDate", index = 11)
+	private LocalDateTime updateDate;
 
 }
