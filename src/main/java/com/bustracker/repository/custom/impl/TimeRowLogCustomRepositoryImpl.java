@@ -19,7 +19,7 @@ public class TimeRowLogCustomRepositoryImpl extends BaseCustomRepository impleme
     public TimeRowLog findRunning(long currentTime) {
         Query query = new Query();
         Criteria where = new Criteria();
-        where.and("today").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        where.and("runningDate").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         where.orOperator(
                 Criteria.where("status").is(TimeRowStatus.IN_PROGRESS),
                 Criteria.where("startTimeMillis").gte(currentTime)
@@ -37,7 +37,7 @@ public class TimeRowLogCustomRepositoryImpl extends BaseCustomRepository impleme
     public List<TimeRowLog> findByTodayLastTimeRow() {
         Query query = new Query();
         Criteria where = new Criteria();
-        where.and("today").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        where.and("runningDate").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         where.orOperator(
             Criteria.where("status").is(TimeRowStatus.STAND_BY),
             Criteria.where("status").is(TimeRowStatus.DELAY)
@@ -53,7 +53,7 @@ public class TimeRowLogCustomRepositoryImpl extends BaseCustomRepository impleme
 //        Criteria where = new Criteria();
 //        where.orOperator(
 //                Criteria.where("status").is(TimeRowStatus.IN_PROGRESS),
-//                Criteria.where("today").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
+//                Criteria.where("runningDate").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
 //                        .and("startTimeMillis").gte(currentTime)
 //                        .and("endTimeMillis").lte(currentTime)
 //        );

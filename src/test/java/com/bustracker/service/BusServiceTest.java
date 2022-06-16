@@ -1,7 +1,7 @@
 package com.bustracker.service;
 
 import com.bustracker.entity.Bus;
-import com.bustracker.status.BusStatus;
+import com.bustracker.exception.ExistsTimeRowLogException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,11 @@ class BusServiceTest {
     private BusService busService;
 
     @Test
-    public void saveBusTest() {
+    public void saveBusTest() throws ExistsTimeRowLogException {
         Bus bus = Bus.builder()
                 .lat(37.1234)
                 .lon(123.12356)
                 .accuracy(90)
-                .status(BusStatus.IN_PROGRESS)
                 .build();
 
         busService.saveBus(bus);

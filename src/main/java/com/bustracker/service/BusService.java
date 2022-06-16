@@ -1,24 +1,19 @@
 package com.bustracker.service;
 
-import com.bustracker.entity.Bus;
-import com.bustracker.entity.Time;
-import com.bustracker.entity.TimeRow;
-import com.bustracker.entity.TimeRowLog;
-import com.bustracker.repository.BusRepository;
-import com.bustracker.repository.TimeRowLogRepository;
-import com.bustracker.repository.TimeRowRepository;
-import com.bustracker.status.BusStatus;
+import com.bustracker.entity.*;
+import com.bustracker.exception.ExistsTimeRowLogException;
+import com.bustracker.repository.*;
 import com.bustracker.status.TimeRowStatus;
+import com.bustracker.status.TimeStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class BusService {
 
@@ -33,6 +28,12 @@ public class BusService {
     private TimeRowLogRepository timeRowLogRepository;
 
     @Autowired
+    private TimeRepository timeRepository;
+
+    @Autowired
+    private TimeLogRepository timeLogRepository;
+
+    @Autowired
     private TimeRowService timeRowService;
 
     @Autowired
@@ -44,7 +45,7 @@ public class BusService {
 
     public List<Bus> updateComplete() {
         List<Bus> busList = busRepository.findRunning();
-        for (Bus bus : busList) bus.setStatus(BusStatus.COMPLETE);
+//        for (Bus bus : busList) bus.setStatus(BusStatus.COMPLETE);
 
         TimeRowLog timeRowLog = timeRowLogService.findById(busList.get(0).getTimeRowLogId());
         timeRowLog.setStatus(TimeRowStatus.COMPLETED);
@@ -53,12 +54,16 @@ public class BusService {
         return busRepository.saveAll(busList);
     }
 
-    public Bus saveBus(Bus bus) {
+    public Bus saveBus(Bus bus) throws ExistsTimeRowLogException {
+        if (!timeRowLogService.isExistTodayTimeRowLog()) timeRowLogService.initToday(false);
+
         TimeRowLog timeRowLog = timeRowLogService.findCurrentTimeRowLog();
         if (timeRowLog != null) {
             bus.setTimeRowLogId(timeRowLog.getId());
 
-            timeRowLog.setStatus(TimeRowStatus.IN_PROGRESS);
+            if (this.isCompleted(timeRowLog, bus)) timeRowLog.setStatus(TimeRowStatus.COMPLETED);
+            else timeRowLog.setStatus(TimeRowStatus.IN_PROGRESS);
+
             timeRowLogService.save(timeRowLog);
         }
         else {
@@ -74,6 +79,50 @@ public class BusService {
         }
 
         return busRepository.save(bus);
+    }
+
+    // TODO: 2022/06/16
+    // private
+    public boolean isCompleted(TimeRowLog timeRowLog, Bus bus) {
+        List<TimeLog> timeLogList = timeLogRepository.findByTimeRowLogId(timeRowLog.getId());
+
+        for (TimeLog timeLog : timeLogList) {
+            if (timeLog.getStatus() == TimeStatus.COMPLETED) continue;
+
+            // 시작
+            if (timeLog.getOrder() == 1) {
+                timeLog.setStatus(TimeStatus.COMPLETED);
+                timeLogRepository.save(timeLog);
+                break;
+
+            }
+            // 마지막 정거장
+            else if (timeLog.getOrder() == timeLogList.size() - 1){
+                /*
+                * 거리 판단
+                * 마지막 정거장이랑 50M (테스트 진행중 거리는 변경 가능)
+                * 정도의 거리면 완료 처리
+                * */
+
+                return true;
+            }
+            else {
+                /*
+                 * 거리 판단
+                 * 처음과 마지막을 제외한 정거장이랑 50M (테스트 진행중 거리는 변경 가능)
+                 * 정도의 거리면 완료 처리
+                 *
+                 * if 거리 50M 이하
+                 * timeLog.setStatus(TimeStatus.COMPLETED);
+                 * timeLogRepository.save(timeLog);
+                 * else break;
+                 * */
+
+
+            }
+        }
+
+        return false;
     }
 
     private int timeToMinute(LocalTime localTime) {

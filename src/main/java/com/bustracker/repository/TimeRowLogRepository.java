@@ -12,6 +12,8 @@ public interface TimeRowLogRepository extends MongoRepository<TimeRowLog, String
     List<TimeRowLog> findAllByTimetableId(String timetableId);
     List<TimeRowLog> findAllByStartTimeMillisIsGreaterThanEqual(long startTime);
     List<TimeRowLog> findAllByStatusAndToday(TimeRowStatus status, String today);
-    List<TimeRowLog> findByToday(String today);
+    List<TimeRowLog> findByRunningDate(String today);
+    boolean existsByRunningDate(String today);
+
 
 }

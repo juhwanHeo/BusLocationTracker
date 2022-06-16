@@ -38,7 +38,6 @@ class BusControllerTest {
                 .lat(37.123)
                 .lon(127.123)
                 .accuracy(90.0)
-                .status(BusStatus.IN_PROGRESS)
                 .build();
 
         String value = mapper.writeValueAsString(bus);

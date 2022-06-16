@@ -32,8 +32,8 @@ public class TimeRowLog {
 	@JsonProperty(value = "timetableId", index = 1)
 	private String timetableId;
 
-	@JsonProperty(value = "today", index = 2)
-	private String today;
+	@JsonProperty(value = "runningDate", index = 2)
+	private String runningDate;
 
 	@JsonProperty(value = "order", index = 3)
 	private int order;

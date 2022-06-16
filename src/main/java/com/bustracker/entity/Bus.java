@@ -38,11 +38,11 @@ public class Bus {
 	@JsonProperty(value = "accuracy", index = 5)
 	private double accuracy;
 
-	@JsonProperty(value = "status",index = 6)
-	private BusStatus status;
+//	@JsonProperty(value = "status",index = 6)
+//	private BusStatus status;
 
 	@CreatedDate
-	@JsonProperty(value = "inputDate", index = 7)
+	@JsonProperty(value = "inputDate", index = 6)
 	private LocalDateTime inputDate;
 
 }
