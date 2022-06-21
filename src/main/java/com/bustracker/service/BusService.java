@@ -5,6 +5,7 @@ import com.bustracker.exception.ExistsTimeRowLogException;
 import com.bustracker.repository.*;
 import com.bustracker.status.TimeRowStatus;
 import com.bustracker.status.TimeStatus;
+import com.bustracker.utils.DistanceUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,9 +82,12 @@ public class BusService {
         return busRepository.save(bus);
     }
 
-    // TODO: 2022/06/16
-    // private
-    public boolean isCompleted(TimeRowLog timeRowLog, Bus bus) {
+    /*
+    * TODO: 2022/06/16
+    * private
+    * Test
+    * */
+    public boolean isCompleted(TimeRowLog timeRowLog, Bus current) {
         List<TimeLog> timeLogList = timeLogRepository.findByTimeRowLogId(timeRowLog.getId());
 
         for (TimeLog timeLog : timeLogList) {
@@ -100,25 +104,34 @@ public class BusService {
             else if (timeLog.getOrder() == timeLogList.size() - 1){
                 /*
                 * 거리 판단
-                * 마지막 정거장이랑 50M (테스트 진행중 거리는 변경 가능)
+                * 마지막 정거장이랑 10M (테스트 진행중 거리는 변경 가능)
                 * 정도의 거리면 완료 처리
                 * */
+                double distance = DistanceUtils.distanceBus2Station(current, timeLog.getStation());
+                if (distance <= 0.01) {
+                    timeLog.setStatus(TimeStatus.COMPLETED);
+                    timeLogRepository.save(timeLog);
+                }
 
-                return true;
+                return timeLogList.get(timeLogList.size() - 1).getStatus() == TimeStatus.COMPLETED;
             }
             else {
                 /*
                  * 거리 판단
-                 * 처음과 마지막을 제외한 정거장이랑 50M (테스트 진행중 거리는 변경 가능)
+                 * 처음과 마지막을 제외한 정거장이랑 10M (테스트 진행중 거리는 변경 가능)
                  * 정도의 거리면 완료 처리
                  *
-                 * if 거리 50M 이하
-                 * timeLog.setStatus(TimeStatus.COMPLETED);
-                 * timeLogRepository.save(timeLog);
+                 * if 거리 50M 이하 :
+                 *     timeLog.setStatus(TimeStatus.COMPLETED);
+                 *     timeLogRepository.save(timeLog);
                  * else break;
                  * */
-
-
+                double distance = DistanceUtils.distanceBus2Station(current, timeLog.getStation());
+                if (distance <= 0.01) {
+                    timeLog.setStatus(TimeStatus.COMPLETED);
+                    timeLogRepository.save(timeLog);
+                }
+                break;
             }
         }
 

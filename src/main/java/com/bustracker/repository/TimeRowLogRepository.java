@@ -11,7 +11,7 @@ import java.util.List;
 public interface TimeRowLogRepository extends MongoRepository<TimeRowLog, String>, TimeRowLogCustomRepository {
     List<TimeRowLog> findAllByTimetableId(String timetableId);
     List<TimeRowLog> findAllByStartTimeMillisIsGreaterThanEqual(long startTime);
-    List<TimeRowLog> findAllByStatusAndToday(TimeRowStatus status, String today);
+    List<TimeRowLog> findAllByStatusAndRunningDate(TimeRowStatus status, String runningDate);
     List<TimeRowLog> findByRunningDate(String today);
     boolean existsByRunningDate(String today);
 
