@@ -9,10 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,8 +31,8 @@ public class TimeRowLog {
 	@JsonProperty(value = "timetableId", index = 1)
 	private String timetableId;
 
-	@JsonProperty(value = "today", index = 2)
-	private String today;
+	@JsonProperty(value = "runningDate", index = 2)
+	private String runningDate;
 
 	@JsonProperty(value = "order", index = 3)
 	private int order;
@@ -59,5 +59,9 @@ public class TimeRowLog {
 	@CreatedDate
 	@JsonProperty(value = "inputDate", index = 10)
 	private LocalDateTime inputDate;
+
+	@LastModifiedDate
+	@JsonProperty(value = "updateDate", index = 11)
+	private LocalDateTime updateDate;
 
 }

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface TimeRowLogCustomRepository {
     TimeRowLog findRunning(long currentTime);
+    List<TimeRowLog> findByTodayLastTimeRow();
 
 }

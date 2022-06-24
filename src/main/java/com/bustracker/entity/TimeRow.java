@@ -54,7 +54,7 @@ public class TimeRow {
 		return TimeRowLog.builder()
 				.timetableId(timetableId)
 				.order(order)
-				.today(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
+				.runningDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
 				.startTime(startTime)
 				.startTimeMillis(startTimeMillis)
 				.endTIme(endTIme)

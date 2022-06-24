@@ -19,19 +19,33 @@ public class TimeRowLogCustomRepositoryImpl extends BaseCustomRepository impleme
     public TimeRowLog findRunning(long currentTime) {
         Query query = new Query();
         Criteria where = new Criteria();
+        where.and("runningDate").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         where.orOperator(
                 Criteria.where("status").is(TimeRowStatus.IN_PROGRESS),
-                Criteria.where("today").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
-                        .and("startTimeMillis").gte(currentTime)
+                Criteria.where("startTimeMillis").gte(currentTime)
                         .and("endTimeMillis").lte(currentTime)
         );
 
-
-        query.with(Sort.by(Sort.Direction.ASC, "today"));
+        query.with(Sort.by(Sort.Direction.ASC, "order"));
         query.addCriteria(where);
         return mongoTemplate.find(query, TimeRowLog.class).stream()
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Not Running !!"));
+    }
+
+    @Override
+    public List<TimeRowLog> findByTodayLastTimeRow() {
+        Query query = new Query();
+        Criteria where = new Criteria();
+        where.and("runningDate").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        where.orOperator(
+            Criteria.where("status").is(TimeRowStatus.STAND_BY),
+            Criteria.where("status").is(TimeRowStatus.DELAY)
+        );
+
+        query.with(Sort.by(Sort.Direction.ASC, "order"));
+        query.addCriteria(where);
+        return mongoTemplate.find(query, TimeRowLog.class);
     }
 
     public TimeRowLog findByStatusAndToday(TimeRowStatus timeRowStatus) {
@@ -39,7 +53,7 @@ public class TimeRowLogCustomRepositoryImpl extends BaseCustomRepository impleme
 //        Criteria where = new Criteria();
 //        where.orOperator(
 //                Criteria.where("status").is(TimeRowStatus.IN_PROGRESS),
-//                Criteria.where("today").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
+//                Criteria.where("runningDate").is(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
 //                        .and("startTimeMillis").gte(currentTime)
 //                        .and("endTimeMillis").lte(currentTime)
 //        );

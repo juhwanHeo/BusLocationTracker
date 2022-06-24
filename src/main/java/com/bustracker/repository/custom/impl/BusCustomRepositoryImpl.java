@@ -16,7 +16,15 @@ public class BusCustomRepositoryImpl extends BaseCustomRepository implements Bus
     public List<Bus> findRunning() {
         Query query = new Query();
         query.addCriteria(Criteria.where("status").is(BusStatus.IN_PROGRESS));
-        query.with(Sort.by(Sort.Direction.ASC, "date"));
+        query.with(Sort.by(Sort.Direction.ASC, "inputDate"));
         return mongoTemplate.find(query, Bus.class);
+    }
+
+    @Override
+    public Bus findBefore() {
+        Query query = new Query();
+        query.with(Sort.by(Sort.Direction.DESC, "inputDate"));
+        query.limit(1);
+        return mongoTemplate.findOne(query, Bus.class);
     }
 }

@@ -35,6 +35,9 @@ const router = new Router({
 
       // Maps
       route('Maps', null, 'components/maps/'),
+
+      // TimeTable
+      route('Timetable', null, 'components/timetable/'),
     ]),
   ],
 })
