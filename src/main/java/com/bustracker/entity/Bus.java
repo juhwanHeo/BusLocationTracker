@@ -1,6 +1,5 @@
 package com.bustracker.entity;
 
-import com.bustracker.status.BusStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -12,7 +11,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)

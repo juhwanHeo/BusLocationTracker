@@ -20,6 +20,9 @@ public class Station {
 	@Id
 	private String id;
 
+	@JsonProperty("stationCode")
+	private String stationCode;
+
 	@JsonProperty("stationName")
 	private String stationName;
 

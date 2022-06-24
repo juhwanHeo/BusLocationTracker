@@ -4,7 +4,7 @@
         </div>
         <v-fab-transition>
             <v-btn
-                :loading=isLoding
+                :loading=isLoading
                 @click=reload()
                 color="green"
                 dark
@@ -16,7 +16,7 @@
                 <v-icon>mdi-refresh</v-icon>
             </v-btn>
         </v-fab-transition>
-        <button @click="dispalyPolyline()">polyline</button>
+        <button @click="displayPolyline()">polyline</button>
 
     </div>
 </template>
@@ -32,11 +32,11 @@ export default {
             busLogs: null,
             currentBus: null,
             markers: [],
-            infowindow: null,
+            infoWindow: null,
             polyline: null,
             image: require('@/assets/bus.svg'),
             loading: null,
-            isLoding: true
+            isLoading: true
         };
     },
     mounted() {
@@ -69,9 +69,9 @@ export default {
                 ) {
                 clearInterval(this.loading);
                 this.displayMarker();
-                this.dispalyPolyline();
+                this.displayPolyline();
 
-                this.isLoding=false;
+                this.isLoading=false;
 
             }
             else {
@@ -79,7 +79,7 @@ export default {
                 this.getCurrentBus();
                 this.getBusLogs();
 
-                this.isLoding=true;
+                this.isLoading=true;
             }
         },
         reload() {
@@ -88,15 +88,15 @@ export default {
             }
 
             this.polyline.setMap(null);
-            this.isLoding = true;
+            this.isLoading = true;
             setTimeout(() => {
                 this.getStations();
                 this.getCurrentBus();
                 this.getBusLogs();
 
                 this.displayMarker();
-                this.dispalyPolyline();
-                this.isLoding = false;
+                this.displayPolyline();
+                this.isLoading = false;
             }, 1000)
         },
         displayMarker() {
@@ -138,10 +138,8 @@ export default {
 
                 this.map.setBounds(bounds);
             }
-
-
         },
-        dispalyPolyline() {
+        displayPolyline() {
             const paths = this.busLogs.map(
                 (position) => new kakao.maps.LatLng(position.lat, position.lon)
             );
@@ -158,9 +156,9 @@ export default {
             this.polyline.setMap(this.map); // 지도에 올린다.
         },
         displayInfoWindow() {
-            if (this.infowindow && this.infowindow.getMap()) {
+            if (this.infoWindow && this.infoWindow.getMap()) {
                 //이미 생성한 인포윈도우가 있기 때문에 지도 중심좌표를 인포윈도우 좌표로 이동시킨다.
-                this.map.setCenter(this.infowindow.getPosition());
+                this.map.setCenter(this.infoWindow.getPosition());
                 return;
             }
 

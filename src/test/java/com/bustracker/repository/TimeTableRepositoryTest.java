@@ -4,10 +4,8 @@ import com.bustracker.entity.Station;
 import com.bustracker.entity.Time;
 import com.bustracker.entity.TimeRow;
 import com.bustracker.entity.TimeTable;
-import com.bustracker.status.TimeRowStatus;
 import com.bustracker.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +14,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -106,8 +102,12 @@ class TimeTableRepositoryTest {
             List<Time> times = new ArrayList<>();
             times.add(new Time(null, timeRow.getId(), 1, timeArray[index][0], stationList.get(0).getId(),  null));
             times.add(new Time(null, timeRow.getId(), 2, timeArray[index][1], stationList.get(1).getId(),  null));
-            times.add(new Time(null, timeRow.getId(), 3, timeArray[index][2], stationList.get(2).getId(),  null));
-            times.add(new Time(null, timeRow.getId(), 4, timeArray[index][3], stationList.get(3).getId(),  null));
+            times.add(new Time(null, timeRow.getId(), 3, null, null,  null));
+            times.add(new Time(null, timeRow.getId(), 4, null, null,  null));
+            times.add(new Time(null, timeRow.getId(), 5, null, null,  null));
+            times.add(new Time(null, timeRow.getId(), 6, null, null,  null));
+            times.add(new Time(null, timeRow.getId(), 7, timeArray[index][2], stationList.get(2).getId(),  null));
+            times.add(new Time(null, timeRow.getId(), 8, timeArray[index][3], stationList.get(0).getId(),  null));
             timeList.add(times);
 
             timeRow.setStartTime(times.get(0).getTime());

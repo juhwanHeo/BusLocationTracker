@@ -1,6 +1,5 @@
 package com.bustracker.service;
 
-
 import com.bustracker.entity.Time;
 import com.bustracker.entity.TimeRow;
 import com.bustracker.entity.TimeTable;
@@ -11,8 +10,10 @@ import com.bustracker.repository.TimeRowRepository;
 import com.bustracker.repository.TimeTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TimetableService {
@@ -36,15 +37,16 @@ public class TimetableService {
 
         List<TimeRow> timeRowList = timeRowRepository.findAllByTimetableId(timeTable.getId());
         for (TimeRow timeRow : timeRowList) {
-            List<Time> timeList = timeRepository.findAllByTimeRowId(timeRow.getId());
+            List<Time> timeList = timeRepository.findAllByTimeRowId(timeRow.getId()).stream()
+                    .peek(time -> {
+                        if (StringUtils.hasText(time.getStationId()))
+                            stationRepository.findById(time.getStationId()).ifPresent(time::setStation);
+                    })
+                    .collect(Collectors.toList());
             timeRow.setTimeList(timeList);
-
-            for (Time time : timeList) {
-                stationRepository.findById(time.getStationId()).ifPresent(time::setStation);
-            }
         }
+
         timeTable.setTimeRowList(timeRowList);
         return timeTable;
     }
-
 }

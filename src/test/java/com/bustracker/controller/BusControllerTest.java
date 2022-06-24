@@ -1,7 +1,6 @@
 package com.bustracker.controller;
 
 import com.bustracker.entity.Bus;
-import com.bustracker.status.BusStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -17,8 +16,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @RunWith(SpringRunner.class)

@@ -3,7 +3,6 @@ package com.bustracker.controller;
 import com.bustracker.entity.TimeRowLog;
 import com.bustracker.exception.ExistsTimeRowLogException;
 import com.bustracker.service.TimeRowLogService;
-import com.bustracker.status.TimeRowStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
