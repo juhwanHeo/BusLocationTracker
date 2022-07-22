@@ -1,6 +1,7 @@
 package com.bustracker.entity;
 
 import com.bustracker.dto.TimetableDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,9 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -26,19 +29,21 @@ import java.util.List;
 public class TimeTable {
 
 	@Id
-	@JsonProperty(value = "id", index = 1)
+	@JsonProperty(value = "id", index = 0)
 	private String id;
 
-//	@JsonProperty("timeRowIds")
-//	private List<String> timeRowIds;
+	@JsonProperty(value = "facilityId", index = 1)
+	private String facilityId;
 
 	@CreatedDate
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonProperty(value = "inputDate", index = 2)
-	private String inputDate;
+	private LocalDateTime inputDate;
 
 	@LastModifiedDate
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonProperty(value = "updateDate", index = 3)
-	private String updateDate;
+	private LocalDateTime updateDate;
 
 	@Transient
 	@JsonProperty(value = "timeRowList", index = 4)

@@ -19,12 +19,12 @@ class BusServiceTest {
     @Test
     public void saveBusTest() throws ExistsTimeRowLogException {
         Bus bus = Bus.builder()
-                .lat(37.1234)
-                .lon(123.12356)
+                .latitude(37.1234)
+                .longitude(123.12356)
                 .accuracy(90)
                 .build();
 
-        busService.saveBus(bus);
+//        busService.saveBus(bus);
 
     }
 }

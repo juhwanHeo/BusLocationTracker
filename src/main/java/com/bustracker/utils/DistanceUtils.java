@@ -9,7 +9,7 @@ public class DistanceUtils {
     * @return km
     * */
     public static double distanceBus2Bus(Bus start, Bus end) {
-        return getDistance(start, end.getLon(), end.getLat());
+        return getDistance(start, end.getLongitude(), end.getLatitude());
     }
 
     /*
@@ -20,9 +20,9 @@ public class DistanceUtils {
     }
 
     private static double getDistance(Bus bus, double lon, double lat) {
-        double theta = bus.getLon() - lon;
-        double dist = Math.sin(deg2rad(bus.getLat())) * Math.sin(deg2rad(lat)) +
-                Math.cos(deg2rad(bus.getLat())) * Math.cos(deg2rad(lat)) *
+        double theta = bus.getLongitude() - lon;
+        double dist = Math.sin(deg2rad(bus.getLatitude())) * Math.sin(deg2rad(lat)) +
+                Math.cos(deg2rad(bus.getLatitude())) * Math.cos(deg2rad(lat)) *
                         Math.cos(deg2rad(theta));
 
         dist = Math.acos(dist);

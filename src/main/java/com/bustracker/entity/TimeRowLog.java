@@ -28,40 +28,43 @@ public class TimeRowLog {
 	@JsonProperty(value = "id", index = 0)
 	private String id;
 
-	@JsonProperty(value = "timetableId", index = 1)
+	@JsonProperty(value = "facilityId", index = 1)
+	private String facilityId;
+
+	@JsonProperty(value = "timetableId", index = 2)
 	private String timetableId;
 
-	@JsonProperty(value = "runningDate", index = 2)
+	@JsonProperty(value = "runningDate", index = 3)
 	private String runningDate;
 
-	@JsonProperty(value = "order", index = 3)
+	@JsonProperty(value = "order", index = 4)
 	private int order;
 
-	@JsonProperty(value = "startTime", index = 4)
+	@JsonProperty(value = "startTime", index = 5)
 	private String startTime;
 
-	@JsonProperty(value = "startTimeMillis", index = 5)
+	@JsonProperty(value = "startTimeMillis", index = 6)
 	private long startTimeMillis;
 
-	@JsonProperty(value = "endTime", index = 6)
+	@JsonProperty(value = "endTime", index = 7)
 	private String endTIme;
 
-	@JsonProperty(value = "endTimeMillis", index = 7)
+	@JsonProperty(value = "endTimeMillis", index = 8)
 	private long endTimeMillis;
 
-	@JsonProperty(value = "status", index = 8)
+	@JsonProperty(value = "status", index = 9)
 	private TimeRowStatus status;
 
 	@Transient
-	@JsonProperty(value = "timeList", index = 9)
+	@JsonProperty(value = "timeList", index = 10)
 	private List<Time> timeList;
 
 	@CreatedDate
-	@JsonProperty(value = "inputDate", index = 10)
+	@JsonProperty(value = "inputDate", index = 11)
 	private LocalDateTime inputDate;
 
 	@LastModifiedDate
-	@JsonProperty(value = "updateDate", index = 11)
+	@JsonProperty(value = "updateDate", index = 12)
 	private LocalDateTime updateDate;
 
 }

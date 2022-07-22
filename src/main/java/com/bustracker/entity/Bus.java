@@ -1,5 +1,6 @@
 package com.bustracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -24,22 +25,20 @@ public class Bus {
 	@JsonProperty(value = "id", index = 1)
 	private String id;
 
-	@JsonProperty(value = "timeRowLogId", index = 2)
-	private String timeRowLogId;
+	@JsonProperty(value = "facilityId", index = 2)
+	private String facilityId;
 
-	@JsonProperty(value = "lat", index = 3)
-	private double lat;
+	@JsonProperty(value = "latitude", index = 3)
+	private double latitude;
 
-	@JsonProperty(value = "lon",index = 4)
-	private double lon;
+	@JsonProperty(value = "longitude",index = 4)
+	private double longitude;
 
 	@JsonProperty(value = "accuracy", index = 5)
 	private double accuracy;
 
-//	@JsonProperty(value = "status",index = 6)
-//	private BusStatus status;
-
 	@CreatedDate
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonProperty(value = "inputDate", index = 6)
 	private LocalDateTime inputDate;
 

@@ -49,13 +49,13 @@ class TimeRepositoryTest {
                 {"08:40", "08:45", "08:50", "08:55"},
         };
         int index = 0;
-        for (TimeRow timeRow : timeRowList) {
-            timeList.add(new Time(null, timeRow.getId(), 1, stationList.get(0).getId(), timeArray[index][0], null));
-            timeList.add(new Time(null, timeRow.getId(), 2, stationList.get(1).getId(), timeArray[index][1], null));
-            timeList.add(new Time(null, timeRow.getId(), 3, stationList.get(2).getId(), timeArray[index][2], null));
-            timeList.add(new Time(null, timeRow.getId(), 4, stationList.get(0).getId(), timeArray[index][3], null));
-            timeRow.setStartTime(timeList.get(0).getTime());
-        }
+//        for (TimeRow timeRow : timeRowList) {
+//            timeList.add(new Time(null, timeRow.getId(), 1, stationList.get(0).getId(), timeArray[index][0], null));
+//            timeList.add(new Time(null, timeRow.getId(), 2, stationList.get(1).getId(), timeArray[index][1], null));
+//            timeList.add(new Time(null, timeRow.getId(), 3, stationList.get(2).getId(), timeArray[index][2], null));
+//            timeList.add(new Time(null, timeRow.getId(), 4, stationList.get(0).getId(), timeArray[index][3], null));
+//            timeRow.setStartTime(timeList.get(0).getTime());
+//        }
 
         timeRowRepository.saveAll(timeRowList);
         timeRepository.deleteAll();

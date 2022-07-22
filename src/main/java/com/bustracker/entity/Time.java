@@ -22,25 +22,29 @@ public class Time {
     @JsonProperty(value = "id", index = 0)
     private String id;
 
-    @JsonProperty(value = "timeRowId", index = 1)
+    @JsonProperty(value = "facilityId", index = 1)
+    private String facilityId;
+
+    @JsonProperty(value = "timeRowId", index = 2)
     private String timeRowId;
 
-    @JsonProperty(value = "order", index = 2)
+    @JsonProperty(value = "order", index = 3)
     private int order;
 
-    @JsonProperty(value = "time", index = 3)
+    @JsonProperty(value = "time", index = 4)
     private String time;
 
-    @JsonProperty(value = "stationId", index = 4)
+    @JsonProperty(value = "stationId", index = 5)
     private String stationId;
 
     @Transient
-    @JsonProperty(value = "station", index = 5)
+    @JsonProperty(value = "station", index = 6)
     private Station station;
 
     @Transient
     public TimeLog convertLog() {
         return TimeLog.builder()
+                .facilityId(facilityId)
                 .order(order)
                 .time(time)
                 .stationId(stationId)

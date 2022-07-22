@@ -3,6 +3,7 @@ package com.bustracker.entity;
 
 import com.bustracker.status.UserRole;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,9 @@ public class User implements UserDetails {
     private String password;
 
     private UserRole role;
+
+    @JsonProperty(value = "facilityId", index = 1)
+    private String facilityId;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
