@@ -23,22 +23,25 @@ public class TimeRowHistory {
 	@JsonProperty(value = "id", index = 0)
 	private String id;
 
-	@JsonProperty(value = "timetableId", index = 1)
+	@JsonProperty(value = "facilityId", index = 1)
+	private String facilityId;
+
+	@JsonProperty(value = "timetableId", index = 2)
 	private String timetableId;
 
-	@JsonProperty(value = "order", index = 2)
+	@JsonProperty(value = "order", index = 3)
 	private int order;
 
-	@JsonProperty(value = "startTime", index = 3)
+	@JsonProperty(value = "startTime", index = 4)
 	private String startTime;
 
-	@JsonProperty(value = "startTimeMillis", index = 4)
+	@JsonProperty(value = "startTimeMillis", index = 5)
 	private long startTimeMillis;
 
-	@JsonProperty(value = "endTime", index = 5)
+	@JsonProperty(value = "endTime", index = 6)
 	private String endTIme;
 
-	@JsonProperty(value = "endTimeMillis", index = 6)
+	@JsonProperty(value = "endTimeMillis", index = 7)
 	private long endTimeMillis;
 
 	@JsonProperty(value = "timeList", index = 8)

@@ -20,4 +20,4 @@ spring:
     show-sql: true
 
 server:
-  port: 3003
+  port: 8080

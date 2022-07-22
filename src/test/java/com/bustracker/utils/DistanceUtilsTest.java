@@ -12,12 +12,12 @@ class DistanceUtilsTest {
     @Test
     public void distance() {
         Bus start = Bus.builder()
-                .lat(37.644891)
-                .lon(127.300135)
+                .latitude(37.644891)
+                .longitude(127.300135)
                 .build();
         Bus end = Bus.builder()
-                .lat(37.660935)
-                .lon(127.32249)
+                .latitude(37.660935)
+                .longitude(127.32249)
                 .build();
 
 

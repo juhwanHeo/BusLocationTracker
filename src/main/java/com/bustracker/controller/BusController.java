@@ -1,8 +1,6 @@
 package com.bustracker.controller;
 
-
 import com.bustracker.entity.Bus;
-import com.bustracker.exception.ExistsTimeRowLogException;
 import com.bustracker.service.BusService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +15,35 @@ public class BusController {
     @Autowired
     private BusService busService;
 
-    @GetMapping("/running")
-    public ResponseEntity<?> findRunning() {
-        return ResponseEntity.ok().body(busService.findRunning());
-    }
 
-    @PatchMapping("/complete")
-    public ResponseEntity<?> updateComplete() {
-        return ResponseEntity.ok().body(busService.updateComplete());
+    @GetMapping
+    public ResponseEntity<?> findLastBus() {
+        return ResponseEntity.ok().body(busService.findLastBus());
     }
 
     @PostMapping
-    public ResponseEntity<?> saveBus(
+    public ResponseEntity<?> saveBusOld(
             @RequestBody Bus bus
-    ) throws ExistsTimeRowLogException {
+    ) {
         log.info("bus: {}", bus);
-        return ResponseEntity.ok().body(busService.saveBus(bus));
+        return ResponseEntity.ok().body(busService.save(bus));
     }
+
+//    @GetMapping("/running")
+//    public ResponseEntity<?> findRunning() {
+//        return ResponseEntity.ok().body(busService.findRunning());
+//    }
+
+//    @PatchMapping("/complete")
+//    public ResponseEntity<?> updateComplete() {
+//        return ResponseEntity.ok().body(busService.updateComplete());
+//    }
+
+//    @PostMapping
+//    public ResponseEntity<?> saveBus(
+//            @RequestBody Bus bus
+//    ) throws ExistsTimeRowLogException {
+//        log.info("bus: {}", bus);
+//        return ResponseEntity.ok().body(busService.saveBus(bus));
+//    }
 }

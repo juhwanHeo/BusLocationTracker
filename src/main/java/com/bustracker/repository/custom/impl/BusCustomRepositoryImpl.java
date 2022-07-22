@@ -21,7 +21,7 @@ public class BusCustomRepositoryImpl extends BaseCustomRepository implements Bus
     }
 
     @Override
-    public Bus findBefore() {
+    public Bus findLastBus() {
         Query query = new Query();
         query.with(Sort.by(Sort.Direction.DESC, "inputDate"));
         query.limit(1);

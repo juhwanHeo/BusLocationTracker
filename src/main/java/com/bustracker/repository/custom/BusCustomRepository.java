@@ -7,6 +7,6 @@ import java.util.List;
 public interface BusCustomRepository {
 
     List<Bus> findRunning();
-    Bus findBefore();
+    Bus findLastBus();
 
 }
