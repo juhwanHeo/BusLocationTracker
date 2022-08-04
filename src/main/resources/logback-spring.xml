@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <springProperty name="LOG_PATH" source="log.path" defaultValue="./logs" />
+    <springProperty name="LOG_LEVEL" source="log.level" defaultValue="WARN" />
+    <springProperty name="LOG_JDBC_LEVEL" source="log.jdbc.level" defaultValue="OFF" />
+    <springProperty name="LOG_MAX_HISTORY" source="log.max.history" defaultValue="30" />
+
+    <property name="FILE_NAME" value="bustracker" />
+    <property name="LOG_PATTERN" value="%date{ISO8601} [%-5level] %logger.%method:%line - %message%n" />
+
+    <appender name="fout" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/${FILE_NAME}.log</file>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/history/${FILE_NAME}.%d{yyyy-MM-dd}_%i.log.gz</fileNamePattern>
+            <maxFileSize>10mb</maxFileSize>
+            <maxHistory>${LOG_MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="ferror" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${LOG_PATH}/${FILE_NAME}-error.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/history/${FILE_NAME}-error.%d{yyyy-MM-dd}_%i.log.gz</fileNamePattern>
+            <maxFileSize>10mb</maxFileSize>
+            <maxHistory>${LOG_MAX_HISTORY}</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- Hibernate JDBC 로그 레벨 -->
+    <logger name="org.springframework.data.mongodb.core.MongoTemplate" level="${LOG_JDBC_LEVEL}" />
+
+    <logger name="com.bustracker" level="${LOG_LEVEL}" />
+    <logger name="com.bustracker.BusTrackerApplication" level="INFO" />
+
+    <springProfile name="dev,local">
+        <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%date{ISO8601} [%-5level] %logger.%method:%line - %message%n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="org.dcm4che3" level="DEBUG" />
+
+        <root level="warn">
+            <appender-ref ref="stdout" />
+            <appender-ref ref="fout" />
+            <appender-ref ref="ferror" />
+        </root>
+    </springProfile>
+</configuration>
