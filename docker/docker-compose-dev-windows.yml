@@ -1,0 +1,25 @@
+version: "3"
+services:
+  jenkins:
+    container_name: jenkins-compose
+    build:
+      context: jenkins-dockerfile
+      dockerfile: Dockerfile
+    user: root
+    ports:
+      - "8000:8080"
+      - "8888:50000"
+    volumes:
+      # Dev - windows
+      - C:\docker\jenkins\jenkins_home:/var/jenkins_home
+      - C:\docker\jenkins\.ssh:/root/.ssh
+  spring:
+    container_name: spring-bustracker-compose
+    build:
+      context: spring-dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      # Dev - windows
+      - C:\docker\jenkins\workspace\spring-boot-ci-cd\build\libs:/deploy
