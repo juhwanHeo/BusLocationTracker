@@ -1,21 +1,19 @@
 package com.bustracker;
 
 import com.bustracker.entity.*;
-import com.bustracker.exception.ExistsTimeRowLogException;
 import com.bustracker.repository.*;
-import com.bustracker.service.BusService;
-import com.bustracker.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
+@ActiveProfiles("local")
 @SpringBootTest
 class InitTest {
 
@@ -38,6 +36,7 @@ class InitTest {
      *
      * 데이터베이스
      * 초기 세팅
+     * @init
      * */
     @Test
     public void setUp() {
