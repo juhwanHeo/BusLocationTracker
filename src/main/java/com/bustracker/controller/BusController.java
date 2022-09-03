@@ -1,10 +1,14 @@
 package com.bustracker.controller;
 
 import com.bustracker.entity.Bus;
+import com.bustracker.config.auth.UserDetailsImpl;
 import com.bustracker.service.BusService;
+import com.bustracker.enums.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -16,16 +20,21 @@ public class BusController {
     private BusService busService;
 
 
+
+    @Secured({UserRole.ROLES.ADMIN, UserRole.ROLES.MANAGER, UserRole.ROLES.DRIVER})
     @GetMapping
     public ResponseEntity<?> findLastBus() {
         return ResponseEntity.ok().body(busService.findLastBus());
     }
 
+    @Secured({UserRole.ROLES.ADMIN, UserRole.ROLES.MANAGER, UserRole.ROLES.DRIVER})
     @PostMapping
     public ResponseEntity<?> saveBusOld(
             @RequestBody Bus bus
+            , Authentication auth
     ) {
-        log.info("bus: {}", bus);
+        UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
+        log.info("user: {}, bus: {}", user, bus);
         return ResponseEntity.ok().body(busService.save(bus));
     }
 

@@ -3,7 +3,7 @@ package com.bustracker.repository.custom.impl;
 import com.bustracker.entity.TimeRow;
 import com.bustracker.repository.custom.BaseCustomRepository;
 import com.bustracker.repository.custom.TimeRowCustomRepository;
-import com.bustracker.status.TimeRowStatus;
+import com.bustracker.enums.TimeRowStatus;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 

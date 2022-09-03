@@ -3,7 +3,7 @@ package com.bustracker.repository.custom.impl;
 import com.bustracker.entity.TimeRowLog;
 import com.bustracker.repository.custom.BaseCustomRepository;
 import com.bustracker.repository.custom.TimeRowLogCustomRepository;
-import com.bustracker.status.TimeRowStatus;
+import com.bustracker.enums.TimeRowStatus;
 import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;

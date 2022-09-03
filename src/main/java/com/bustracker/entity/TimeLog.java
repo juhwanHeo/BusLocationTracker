@@ -1,6 +1,6 @@
 package com.bustracker.entity;
 
-import com.bustracker.status.TimeStatus;
+import com.bustracker.enums.TimeStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

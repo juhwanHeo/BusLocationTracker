@@ -3,7 +3,7 @@ package com.bustracker.repository;
 
 import com.bustracker.entity.TimeRowLog;
 import com.bustracker.repository.custom.TimeRowLogCustomRepository;
-import com.bustracker.status.TimeRowStatus;
+import com.bustracker.enums.TimeRowStatus;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
