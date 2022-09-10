@@ -33,6 +33,12 @@ public class BusTrackerApplication {
     @Value("${log.max.history}")
     private String logMaxHistory;
 
+    @Value("${jwt.issuer}")
+    private String ISSUER;
+
+    @Value("${jwt.secret}")
+    private String SECRET;
+
     @Bean
     public CommandLineRunner runner() {
         return (args) -> {
@@ -46,6 +52,8 @@ public class BusTrackerApplication {
             log.info("Logback Log Level: {}", logLevel);
             log.info("Logback Log Jdbc Level: {}",  logJdbcLevel);
             log.info("Logback Log 보관일: {} 일",  logMaxHistory);
+            log.info("jwt issuer: {}",  ISSUER);
+            log.info("jwt secret: {}",  SECRET);
             log.info("-------------------------------- end --------------------------------");
         };
     }

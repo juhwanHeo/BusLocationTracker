@@ -1,10 +1,11 @@
 package com.bustracker.repository;
 
-import com.bustracker.config.auth.UserDetailsImpl;
+import com.bustracker.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface AuthUserRepository extends MongoRepository<UserDetailsImpl, String> {
-    Optional<UserDetailsImpl> findByLoginId(String loginId);
+public interface AuthUserRepository extends MongoRepository<User, String> {
+    Optional<User> findByLoginId(String loginId);
 }
+

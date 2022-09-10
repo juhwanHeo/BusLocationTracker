@@ -1,6 +1,6 @@
 package com.bustracker.config;
 
-import com.bustracker.config.auth.jwt.JwtArgumentResolver;
+//import com.bustracker.config.auth.jwt.JwtArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
@@ -17,12 +17,12 @@ import java.util.List;
 @EnableWebMvc
 @Configuration
 public class WebMvcConfigurerImpl implements WebMvcConfigurer {
-    @Resource
-    private JwtArgumentResolver jwtArgumentResolver;
+//    @Resource
+//    private JwtArgumentResolver jwtArgumentResolver;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers){
-        argumentResolvers.add(jwtArgumentResolver);
+//        argumentResolvers.add(jwtArgumentResolver);
     }
 
     @Override

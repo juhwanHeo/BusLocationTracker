@@ -19,12 +19,12 @@ public class BusController {
     @Autowired
     private BusService busService;
 
-
-
     @Secured({UserRole.ROLES.ADMIN, UserRole.ROLES.MANAGER, UserRole.ROLES.DRIVER})
     @GetMapping
     public ResponseEntity<?> findLastBus() {
-        return ResponseEntity.ok().body(busService.findLastBus());
+        Bus bus = busService.findLastBus();
+        log.info("findLastBus: {}", bus);
+        return ResponseEntity.ok().body(bus);
     }
 
     @Secured({UserRole.ROLES.ADMIN, UserRole.ROLES.MANAGER, UserRole.ROLES.DRIVER})

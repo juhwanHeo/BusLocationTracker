@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Builder
@@ -21,29 +22,29 @@ public class UserDetailsImpl implements UserDetails {
 
     @Id
     private String id;
-
     private String loginId;
 
     @JsonIgnore
     private String password;
-
-    private UserRole role;
-
+    private String name;
+    private String email;
+    private List<UserRole> roles;
     private String facilityId;
-
     private String jwtToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+        for (UserRole role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
+        }
         return authorities;
     }
 
     @Override
     public String getUsername() {
-        return role.getAuthority();
+        return name;
     }
 
     @Override

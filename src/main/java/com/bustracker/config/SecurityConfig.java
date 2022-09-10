@@ -45,16 +45,13 @@ public class SecurityConfig {
         return new AuthFilter();
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-//                .antMatchers("/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/bus-logs").permitAll()
-//                .antMatchers(HttpMethod.GET, "/bus-logs").permitAll()
-//                .antMatchers("/api/bus-logs").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/bus-logs").hasAuthority(UserRole.DRIVER.getAuthority())
+                .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
                 .anyRequest().authenticated()
 //                .hasRole(UserRole.BUS_DRIVER.getValue())
             .and()
