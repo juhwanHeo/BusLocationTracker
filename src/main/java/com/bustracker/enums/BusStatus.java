@@ -1,4 +1,4 @@
-package com.bustracker.status;
+package com.bustracker.enums;
 
 public enum BusStatus {
     // 운행 중

@@ -3,7 +3,7 @@ package com.bustracker.repository.custom.impl;
 import com.bustracker.entity.Bus;
 import com.bustracker.repository.custom.BaseCustomRepository;
 import com.bustracker.repository.custom.BusCustomRepository;
-import com.bustracker.status.BusStatus;
+import com.bustracker.enums.BusStatus;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;

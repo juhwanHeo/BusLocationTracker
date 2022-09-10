@@ -1,6 +1,6 @@
 package com.bustracker.entity;
 
-import com.bustracker.status.TimeRowStatus;
+import com.bustracker.enums.TimeRowStatus;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

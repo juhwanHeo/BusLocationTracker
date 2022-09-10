@@ -3,8 +3,10 @@ package com.bustracker.controller;
 import com.bustracker.entity.TimeRowLog;
 import com.bustracker.exception.ExistsTimeRowLogException;
 import com.bustracker.service.TimeRowLogService;
+import com.bustracker.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,11 +39,13 @@ public class TimeRowLogController {
      * 관리자가
      * TimeRowLog 변경
      * */
+    @Secured({UserRole.ROLES.ADMIN, UserRole.ROLES.MANAGER})
     @PatchMapping
     public ResponseEntity<?> update(@RequestBody List<TimeRowLog> timeRowList){
         return ResponseEntity.ok().body(timeRowLogService.saveAll(timeRowList));
     }
 
+    @Secured({UserRole.ROLES.ADMIN, UserRole.ROLES.MANAGER})
     @PostMapping("/today/init/{isForce}")
     public ResponseEntity<?> initToday(@PathVariable boolean isForce) throws ExistsTimeRowLogException {
         timeRowLogService.initToday(isForce);

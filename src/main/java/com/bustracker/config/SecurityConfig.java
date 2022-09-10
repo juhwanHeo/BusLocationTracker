@@ -1,16 +1,23 @@
 package com.bustracker.config;
 
+import com.bustracker.config.auth.AuthenticationEntryPointImpl;
 import com.bustracker.config.auth.AuthenticationProviderImpl;
+import com.bustracker.config.auth.filter.AuthFilter;
 import com.bustracker.service.UserService;
-import com.bustracker.status.UserRole;
+import com.bustracker.enums.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -19,6 +26,8 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Resource
+    private AuthenticationEntryPointImpl unauthorizedHandler;
 
     @Resource
     private AuthenticationProviderImpl authenticationProvider;
@@ -32,13 +41,19 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthFilter authenticationFilter() {
+        return new AuthFilter();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf().disable().cors().and().csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers("/bus-logs/")
-//                .permitAll()
-                .hasRole(UserRole.BUS_DRIVER.getValue())
+                .antMatchers(HttpMethod.GET, "/api/bus-logs").hasAuthority(UserRole.DRIVER.getAuthority())
+                .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
+                .anyRequest().authenticated()
+//                .hasRole(UserRole.BUS_DRIVER.getValue())
             .and()
                 .formLogin()
                 .loginPage("/")
@@ -47,9 +62,10 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
             .and()
-                .exceptionHandling()
-            .and().formLogin().disable();
-
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+            .and()
+                .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .formLogin().disable();
 
         return http.build();
     }

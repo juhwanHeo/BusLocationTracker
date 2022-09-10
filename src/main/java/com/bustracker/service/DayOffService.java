@@ -2,7 +2,7 @@ package com.bustracker.service;
 
 import com.bustracker.entity.DayOff;
 import com.bustracker.repository.DayOffRepository;
-import com.bustracker.status.DayOffStatus;
+import com.bustracker.enums.DayOffStatus;
 import com.bustracker.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

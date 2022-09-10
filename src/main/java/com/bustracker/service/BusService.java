@@ -1,13 +1,8 @@
 package com.bustracker.service;
 
 import com.bustracker.entity.*;
-import com.bustracker.exception.ExistsTimeRowLogException;
 import com.bustracker.repository.*;
-import com.bustracker.status.TimeRowStatus;
-import com.bustracker.status.TimeStatus;
-import com.bustracker.utils.DistanceUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.errors.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

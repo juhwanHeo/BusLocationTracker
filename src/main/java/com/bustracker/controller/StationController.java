@@ -2,8 +2,10 @@ package com.bustracker.controller;
 
 import com.bustracker.entity.Station;
 import com.bustracker.service.StationService;
+import com.bustracker.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,6 +22,7 @@ public class StationController {
         return ResponseEntity.ok().body(stationService.findByStationName(stationName));
     }
 
+    @Secured({UserRole.ROLES.ADMIN, UserRole.ROLES.MANAGER})
     @PostMapping
     public ResponseEntity<?> saveStation(
             @RequestBody Station station

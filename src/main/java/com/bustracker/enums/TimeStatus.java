@@ -1,4 +1,4 @@
-package com.bustracker.status;
+package com.bustracker.enums;
 
 public enum TimeStatus {
     // 대기

@@ -8,3 +8,4 @@ import java.util.Optional;
 public interface AuthUserRepository extends MongoRepository<User, String> {
     Optional<User> findByLoginId(String loginId);
 }
+
